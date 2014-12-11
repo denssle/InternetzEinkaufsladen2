@@ -19,10 +19,9 @@ public class NavigationsView implements ActionListener
 			"Profil", 
 			"Verwaltung"};
 	
-	public void anzeigen()
+	public void anzeigen(JFrame frame)
 	{
-		JFrame frame = new JFrame("InternetzLaden2");
-		frame.setLayout(new FlowLayout());
+		
 		
 		JPanel leiste = new JPanel();
 		
@@ -34,9 +33,6 @@ public class NavigationsView implements ActionListener
 		}
 		
 		frame.add(leiste);
-		frame.setSize(700,700);
-		frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
 		
 	}
 
