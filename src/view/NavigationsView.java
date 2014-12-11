@@ -12,17 +12,17 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 public class NavigationsView implements ActionListener
 {
+	private String[] buttonlabels = {
+			"Anmelden", 
+			"Einkaufen", 
+			"Einkaufswagen", 
+			"Profil", 
+			"Verwaltung"};
+	
 	public void anzeigen()
 	{
 		JFrame frame = new JFrame("InternetzLaden2");
 		frame.setLayout(new FlowLayout());
-		
-		String[] buttonlabels = {
-				"Anmelden", 
-				"Einkaufen", 
-				"Einkaufswagen", 
-				"Profil", 
-				"Verwaltung"};
 		
 		JPanel leiste = new JPanel();
 		
@@ -43,9 +43,12 @@ public class NavigationsView implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String Befehl = e.getActionCommand();
-		if (Befehl.equals("Anmelden"))
+		for(int i = 0; i<buttonlabels.length; i++)
 		{
-			System.out.println("X");
+			if (Befehl.equals(buttonlabels[i]))
+			{
+				System.out.println(buttonlabels[i]);
+			}	
 		}
 	}
 }
