@@ -1,9 +1,6 @@
 package view;
 
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,17 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 public class NavigationsView implements ActionListener
 {
-	private String[] buttonlabels = {
+	private JFrame navFrame = new JFrame("InternetzLaden2");
+	private String zuWechseln;
+	private String[] buttonlabels = 
+		{
 			"Anmelden", 
 			"Einkaufen", 
 			"Einkaufswagen", 
 			"Profil", 
-			"Verwaltung"};
+			"Verwaltung"
+		};
 	
-	public void anzeigen(JFrame frame)
+	public void anzeigen()
 	{
-		
-		
+		navFrame.setLayout(new FlowLayout());
 		JPanel leiste = new JPanel();
 		
 		for(int i = 0; i<buttonlabels.length; i++)
@@ -32,8 +32,11 @@ public class NavigationsView implements ActionListener
 			leiste.add(neuerButton);
 		}
 		
-		frame.add(leiste);
+		navFrame.add(leiste);
 		
+		navFrame.setSize(700,150);
+		navFrame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+		navFrame.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -43,8 +46,9 @@ public class NavigationsView implements ActionListener
 		{
 			if (Befehl.equals(buttonlabels[i]))
 			{
-				System.out.println(buttonlabels[i]);
+				zuWechseln = buttonlabels[i];
 			}	
 		}
+		System.out.println(zuWechseln);
 	}
 }
