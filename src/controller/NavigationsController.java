@@ -30,6 +30,14 @@ public class NavigationsController implements ActionListener
 				{
 					loginC.loginAnzeigen();
 				}
+				if(Befehl.equals(buttonlabels[1]))
+				{
+					einkaufsC.einkaufAnzeigen();
+				}
+				if(Befehl.equals(buttonlabels[4]))
+				{
+					registrationsC.regiAnzeigen();
+				}
 			}	
 		}
 	}

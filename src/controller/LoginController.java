@@ -18,9 +18,13 @@ public class LoginController implements ActionListener
 		loginV.setListener(loginC);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		
+		System.out.println("Login: Event");
+		String Befehl = e.getActionCommand();
+		if(Befehl.equals("Ok"))
+		{
+			System.out.println("Login: OK");
+		}
 	}
 }

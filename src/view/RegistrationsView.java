@@ -24,7 +24,7 @@ public class RegistrationsView
 		regiFrame.setLayout(new FlowLayout());		
 		regiFrame.setSize(700,700);
 		regiFrame.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
-		regiFrame.setLocation(700, 0);
+		regiFrame.setLocation(710, 200);
 		regiFrame.setVisible(true);
 	}
 }
