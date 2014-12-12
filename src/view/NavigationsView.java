@@ -50,17 +50,17 @@ class ButtonListener implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		  String zuWechseln = "leerer String :)";
-			String Befehl = e.getActionCommand();
-			for(int i = 0; i<buttonlabels.length; i++)
+		String zuWechseln = "leerer String :)";
+		String Befehl = e.getActionCommand();
+		for(int i = 0; i<buttonlabels.length; i++)
+		{
+			if (Befehl.equals(buttonlabels[i]))
 			{
-				if (Befehl.equals(buttonlabels[i]))
-				{
-					zuWechseln = buttonlabels[i];
-				}	
-			}
-			System.out.println(zuWechseln);
-	  }
+				zuWechseln = buttonlabels[i];
+			}	
+		}
+		System.out.println(zuWechseln);
+	}
 	
 	public static void setButtonsLabels(String[] newLabel)
 	{
