@@ -14,8 +14,5 @@ public class ControllerController
 	public void startShop()
 	{
 		navigationsC.navigationAnzeigen();
-		einkaufsC.einkaufAnzeigen();
-		loginC.loginAnzeigen();
-		registrationsC.regiAnzeigen();
 	}
 }
