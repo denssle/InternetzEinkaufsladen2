@@ -25,7 +25,7 @@ public class EinkaufsView
 		einkaufFrame.setSize(700,700);
 		einkaufFrame.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		einkaufFrame.setVisible(true);
-		einkaufFrame.setLocation(0, 200);
+		einkaufFrame.setLocation(0, 180);
 	}
 	public void setListener(ActionListener controller)
 	{
