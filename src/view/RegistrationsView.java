@@ -12,7 +12,7 @@ private JFrame regiFrame = new JFrame("Registration");
 	{
 		regiFrame.setLayout(new FlowLayout());		
 		regiFrame.setSize(700,700);
-		regiFrame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+		regiFrame.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		regiFrame.setVisible(true);
 	}
 }

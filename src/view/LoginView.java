@@ -12,7 +12,7 @@ private JFrame loginFrame = new JFrame("Login");
 	{
 		loginFrame.setLayout(new FlowLayout());		
 		loginFrame.setSize(700,700);
-		loginFrame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+		loginFrame.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		loginFrame.setVisible(true);
 	}
 }

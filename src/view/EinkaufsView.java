@@ -13,7 +13,7 @@ public class EinkaufsView
 	{
 		einkaufFrame.setLayout(new FlowLayout());		
 		einkaufFrame.setSize(700,700);
-		einkaufFrame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+		einkaufFrame.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		einkaufFrame.setVisible(true);
 	}
 }
