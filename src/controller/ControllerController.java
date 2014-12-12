@@ -13,6 +13,7 @@ public class ControllerController
 	
 	public void startShop()
 	{
+		navigationsC.setListener(navigationsC);
 		navigationsC.navigationAnzeigen();
 	}
 }

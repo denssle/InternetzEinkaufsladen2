@@ -3,37 +3,40 @@ package view;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 public class NavigationsView
 {
+	private ActionListener controller;
 	private JFrame navFrame = new JFrame("InternetzLaden2");
-	private String[] buttonlabels = 
+	private final String[] buttonlabels = 
 		{
 			"Anmelden", 
 			"Einkaufen", 
 			"Einkaufswagen", 
 			"Profil", 
-			"Verwaltung"
+			"Registration"
 		};
 	
 	public void anzeigen()
-	{
-		ButtonListener.setButtonsLabels(buttonlabels);
-		
+	{		
 		JPanel leiste = new JPanel();
 		for(int i = 0; i<buttonlabels.length; i++)
 		{
 			JButton neuerButton = new JButton(buttonlabels[i]);
-			neuerButton.addActionListener(new ButtonListener());
+			neuerButton.addActionListener(controller);
 			leiste.add(neuerButton);
 		}
 		navFrame.add(leiste);
 		frameBauen();
 	}
-	
+	public String[] getLabel()
+	{
+		return buttonlabels;
+	}
 	private void frameBauen()
 	{
 		navFrame.setLayout(new FlowLayout());
@@ -42,28 +45,11 @@ public class NavigationsView
 		navFrame.setAlwaysOnTop(true);
 		navFrame.setVisible(true);
 	}
+
+	public void setListener(ActionListener controller)
+	{
+		this.controller = controller;
+	}
 }
 
-class ButtonListener implements ActionListener
-{
-	private static String[] buttonlabels;
-	
-	public void actionPerformed(ActionEvent e)
-	{
-		String zuWechseln = "leerer String :)";
-		String Befehl = e.getActionCommand();
-		for(int i = 0; i<buttonlabels.length; i++)
-		{
-			if (Befehl.equals(buttonlabels[i]))
-			{
-				zuWechseln = buttonlabels[i];
-			}	
-		}
-		System.out.println(zuWechseln);
-	}
-	
-	public static void setButtonsLabels(String[] newLabel)
-	{
-		buttonlabels = newLabel;
-	}
-}
+
