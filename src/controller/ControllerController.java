@@ -1,9 +1,5 @@
 package controller;
 
-import java.awt.FlowLayout;
-
-import javax.swing.JFrame;
-
 public class ControllerController
 {
 	private NavigationsController navigationsC = new NavigationsController();
@@ -13,7 +9,15 @@ public class ControllerController
 	
 	public void startShop()
 	{
-		navigationsC.setListener(navigationsC);
+		starteListener();
 		navigationsC.navigationAnzeigen();
+	}
+	
+	private void starteListener()
+	{
+		navigationsC.setListener(navigationsC);
+		einkaufsC.setListener(einkaufsC);
+		loginC.setListener(loginC);
+		registrationsC.setListener(registrationsC);
 	}
 }

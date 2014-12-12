@@ -20,17 +20,18 @@ public class NavigationsController implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String[] buttonlabels = navigationsV.getLabel();
-		String zuWechseln = null;
 		
 		String Befehl = e.getActionCommand();
 		for(int i = 0; i<buttonlabels.length; i++)
 		{
 			if (Befehl.equals(buttonlabels[i]))
 			{
-				zuWechseln = buttonlabels[i];
+				if(Befehl.equals(buttonlabels[0]))
+				{
+					loginC.loginAnzeigen();
+				}
 			}	
 		}
-		System.out.println(zuWechseln);
 	}
 
 	public void setListener(NavigationsController navigationsC)
