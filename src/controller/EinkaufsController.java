@@ -6,10 +6,12 @@ import view.EinkaufsView;
 
 public class EinkaufsController implements ActionListener
 {
-	private EinkaufsView einkaufsV = new EinkaufsView();
+	private static EinkaufsView einkaufsV = new EinkaufsView();
 	
-	public void einkaufAnzeigen()
+	public static void einkaufAnzeigen()
 	{
+		if(einkaufsV.isActiv())
+			einkaufsV.reset();
 		einkaufsV.anzeigen();
 	}
 

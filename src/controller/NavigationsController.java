@@ -7,9 +7,6 @@ import view.NavigationsView;
 
 public class NavigationsController implements ActionListener
 {
-	private EinkaufsController einkaufsC = new EinkaufsController();
-	private LoginController loginC = new LoginController();
-	private RegistrationsController registrationsC = new RegistrationsController();
 	private NavigationsView navigationsV = new NavigationsView();
 	
 	public void navigationAnzeigen()
@@ -17,6 +14,7 @@ public class NavigationsController implements ActionListener
 		navigationsV.anzeigen();
 	}
 	
+	@SuppressWarnings("static-access")
 	public void actionPerformed(ActionEvent e)
 	{
 		String[] buttonlabels = navigationsV.getLabel();
@@ -28,15 +26,21 @@ public class NavigationsController implements ActionListener
 			{
 				if(Befehl.equals(buttonlabels[0]))
 				{
-					loginC.loginAnzeigen();
+					LoginController.loginAnzeigen();
 				}
 				if(Befehl.equals(buttonlabels[1]))
 				{
-					einkaufsC.einkaufAnzeigen();
+					EinkaufsController.einkaufAnzeigen();
+				}
+				if(Befehl.equals(buttonlabels[2]))
+				{
+				}
+				if(Befehl.equals(buttonlabels[3]))
+				{
 				}
 				if(Befehl.equals(buttonlabels[4]))
 				{
-					registrationsC.regiAnzeigen();
+					RegistrationsController.regiAnzeigen();
 				}
 			}	
 		}

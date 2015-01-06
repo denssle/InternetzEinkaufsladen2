@@ -53,4 +53,12 @@ public class RegistrationsView
 		regiFrame.setLocation(710, 180);
 		regiFrame.setVisible(true);
 	}
+	public boolean isActiv()
+	{
+		return regiFrame.isDisplayable();
+	}
+	public void reset()
+	{
+		regiFrame.removeAll();
+	}
 }

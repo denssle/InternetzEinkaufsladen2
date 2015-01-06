@@ -50,4 +50,12 @@ public class EinkaufsView
 		
 		return zeile;
 	}
+	public boolean isActiv()
+	{
+		return einkaufFrame.isDisplayable();
+	}
+	public void reset()
+	{
+		einkaufFrame.removeAll();
+	}
 }

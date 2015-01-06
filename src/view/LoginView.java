@@ -47,4 +47,13 @@ public class LoginView
 		loginFrame.setLocation(710, 0);
 		loginFrame.setVisible(true);
 	}
+	public boolean isActiv()
+	{
+		return loginFrame.isDisplayable();
+	}
+	
+	public void reset()
+	{
+		loginFrame.removeAll();
+	}
 }
