@@ -1,5 +1,5 @@
 import controller.ControllerController;
-import controller.EinkaufsController;
+import controller.ShopController;
 import controller.LoginController;
 import controller.NavigationsController;
 import controller.RegistrationsController;

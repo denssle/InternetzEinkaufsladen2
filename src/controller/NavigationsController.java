@@ -30,7 +30,7 @@ public class NavigationsController implements ActionListener
 				}
 				if(Befehl.equals(buttonlabels[1]))
 				{
-					EinkaufsController.einkaufAnzeigen();
+					ShopController.einkaufAnzeigen();
 				}
 				if(Befehl.equals(buttonlabels[2]))
 				{

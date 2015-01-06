@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class EinkaufsView
+public class ShopView
 {
 	private JFrame einkaufFrame = new JFrame("Einkaufen");
 	private ActionListener controller;

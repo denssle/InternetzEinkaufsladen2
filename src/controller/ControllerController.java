@@ -3,7 +3,7 @@ package controller;
 public class ControllerController
 {
 	private NavigationsController navigationsC = new NavigationsController();
-	private EinkaufsController einkaufsC = new EinkaufsController();
+	private ShopController einkaufsC = new ShopController();
 	private LoginController loginC = new LoginController();
 	private RegistrationsController registrationsC = new RegistrationsController();
 	

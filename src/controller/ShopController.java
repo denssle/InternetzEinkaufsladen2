@@ -2,11 +2,11 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.EinkaufsView;
+import view.ShopView;
 
-public class EinkaufsController implements ActionListener
+public class ShopController implements ActionListener
 {
-	private static EinkaufsView einkaufsV = new EinkaufsView();
+	private static ShopView einkaufsV = new ShopView();
 	
 	public static void einkaufAnzeigen()
 	{
@@ -15,7 +15,7 @@ public class EinkaufsController implements ActionListener
 		einkaufsV.anzeigen();
 	}
 
-	public void setListener(EinkaufsController einkaufsC)
+	public void setListener(ShopController einkaufsC)
 	{
 		einkaufsV.setListener(einkaufsC);
 	}
