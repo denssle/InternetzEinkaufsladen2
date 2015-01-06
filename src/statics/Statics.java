@@ -10,4 +10,5 @@ public class Statics
 		"Profil", 
 		"Registration"
 	};
+	public static final String[] benutzerlabels = {"Name", "Email", "Geburtstag", "Strasse", "Hausnummer", "Stadt", "Postleitzahl", "Passwort"};
 }

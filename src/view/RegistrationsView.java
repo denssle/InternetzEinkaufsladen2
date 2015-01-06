@@ -10,10 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class RegistrationsView
+import statics.Statics;
+
+public class RegistrationsView extends JFrame
 {
-	private String[] daten = {"Name", "Email", "Geburtstag", "Strasse", "Hausnummer", "Stadt", "Postleitzahl", "Passwort"};
-	private JTextField[] textFelder = new JTextField[daten.length];
+	private JTextField[] textFelder = new JTextField[Statics.benutzerlabels.length];
 
 	private JFrame regiFrame = new JFrame("Registration");
 	private ActionListener controller;
@@ -23,12 +24,12 @@ public class RegistrationsView
 		JPanel zeile = new JPanel();
 		zeile.setLayout(new FlowLayout());
 		
-		zeile.setLayout(new GridLayout(daten.length+1,2));
-		for(int i = 0; i<daten.length; i++)
+		zeile.setLayout(new GridLayout(Statics.benutzerlabels.length+1,2));
+		for(int i = 0; i<Statics.benutzerlabels.length; i++)
 		{
-			zeile.add(new JLabel(daten[i]));
-			JTextField input = new JTextField("Hier bitte "+daten[i]+" eingeben.");
-			input.setName(daten[i]);
+			zeile.add(new JLabel(Statics.benutzerlabels[i]));
+			JTextField input = new JTextField("Hier bitte "+Statics.benutzerlabels[i]+" eingeben.");
+			input.setName(Statics.benutzerlabels[i]);
 			textFelder[i]=input;
 			zeile.add(input);
 		}

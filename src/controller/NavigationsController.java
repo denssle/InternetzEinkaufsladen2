@@ -15,7 +15,6 @@ public class NavigationsController implements ActionListener
 		navigationsV.showFrame();
 	}
 	
-	@SuppressWarnings("static-access")
 	public void actionPerformed(ActionEvent e)
 	{
 		String Befehl = e.getActionCommand();

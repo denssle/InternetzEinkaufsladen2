@@ -8,31 +8,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ShopView
-{
-	private JFrame einkaufFrame = new JFrame("Einkaufen");
-	private ActionListener controller;
-	
-	public void anzeigen()
+public class ShopView extends JFrame
+{	
+	public ShopView(ActionListener shopController)
 	{
-		JPanel panel = bauPanel();
-		bauFrame(panel);
-	}
-	private void bauFrame(JPanel panel)
-	{
-		einkaufFrame.add(panel);
-		einkaufFrame.setLayout(new FlowLayout());		
-		einkaufFrame.setSize(700,700);
-		einkaufFrame.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
-		einkaufFrame.setVisible(true);
-		einkaufFrame.setLocation(0, 180);
-	}
-	public void setListener(ActionListener controller)
-	{
-		this.controller = controller;
-	}
-	private JPanel bauPanel()
-	{
+		this.setTitle("Einkaufen");
+		this.setLayout(new FlowLayout());		
+		this.setSize(700,700);
+		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
+		this.setLocation(0, 180);
+		
 		JPanel zeile = new JPanel();
 		int limit = 21;
 		zeile.setLayout(new GridLayout(limit+1, 3));
@@ -47,15 +32,18 @@ public class ShopView
 	        JButton details = new JButton("Details");
 	        zeile.add(details);
 		}
-		
-		return zeile;
 	}
+	public void anzeigen()
+	{
+		this.setVisible(true);
+	}
+
 	public boolean isActiv()
 	{
-		return einkaufFrame.isDisplayable();
+		return this.isDisplayable();
 	}
 	public void reset()
 	{
-		einkaufFrame.removeAll();
+		this.removeAll();
 	}
 }

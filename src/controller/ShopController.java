@@ -6,18 +6,11 @@ import view.ShopView;
 
 public class ShopController implements ActionListener
 {
-	private static ShopView einkaufsV = new ShopView();
+	private ShopView einkaufsV = new ShopView(this);
 	
 	public static void einkaufAnzeigen()
 	{
-		if(einkaufsV.isActiv())
-			einkaufsV.reset();
 		einkaufsV.anzeigen();
-	}
-
-	public void setListener(ShopController einkaufsC)
-	{
-		einkaufsV.setListener(einkaufsC);
 	}
 
 	@Override
