@@ -8,6 +8,7 @@ import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
 public class NavigationsView
 {
 	private ActionListener controller;
