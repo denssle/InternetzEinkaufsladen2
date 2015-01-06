@@ -3,51 +3,45 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import statics.Statics;
 import view.NavigationsView;
 
 public class NavigationsController implements ActionListener
 {
-	private NavigationsView navigationsV = new NavigationsView();
+	private NavigationsView navigationsV = new NavigationsView(this);
 	
 	public void navigationAnzeigen()
 	{
-		navigationsV.anzeigen();
+		navigationsV.showFrame();
 	}
 	
 	@SuppressWarnings("static-access")
 	public void actionPerformed(ActionEvent e)
 	{
-		String[] buttonlabels = navigationsV.getLabel();
-		
 		String Befehl = e.getActionCommand();
-		for(int i = 0; i<buttonlabels.length; i++)
+		for(int i = 0; i<Statics.buttonlabels_nav.length; i++)
 		{
-			if (Befehl.equals(buttonlabels[i]))
+			if (Befehl.equals(Statics.buttonlabels_nav[i]))
 			{
-				if(Befehl.equals(buttonlabels[0]))
+				if(Befehl.equals(Statics.buttonlabels_nav[0]))
 				{
 					LoginController.loginAnzeigen();
 				}
-				if(Befehl.equals(buttonlabels[1]))
+				if(Befehl.equals(Statics.buttonlabels_nav[1]))
 				{
 					ShopController.einkaufAnzeigen();
 				}
-				if(Befehl.equals(buttonlabels[2]))
+				if(Befehl.equals(Statics.buttonlabels_nav[2]))
 				{
 				}
-				if(Befehl.equals(buttonlabels[3]))
+				if(Befehl.equals(Statics.buttonlabels_nav[3]))
 				{
 				}
-				if(Befehl.equals(buttonlabels[4]))
+				if(Befehl.equals(Statics.buttonlabels_nav[4]))
 				{
 					RegistrationsController.regiAnzeigen();
 				}
 			}	
 		}
-	}
-
-	public void setListener(NavigationsController navigationsC)
-	{
-		navigationsV.setListener(navigationsC);
 	}
 }

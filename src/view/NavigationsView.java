@@ -9,47 +9,31 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
-public class NavigationsView
-{
-	private ActionListener controller;
-	private JFrame navFrame = new JFrame("InternetzLaden2");
-	private final String[] buttonlabels = 
-		{
-			"Anmelden", 
-			"Einkaufen", 
-			"Einkaufswagen", 
-			"Profil", 
-			"Registration"
-		};
-	
-	public void anzeigen()
-	{		
+import statics.Statics;
+
+public class NavigationsView extends JFrame
+{	
+	public NavigationsView(ActionListener navigationsController)
+	{
+		this.setTitle("Internetzladen 2");
 		JPanel leiste = new JPanel();
-		for(int i = 0; i<buttonlabels.length; i++)
+		for(int i = 0; i< Statics.buttonlabels_nav.length; i++)
 		{
-			JButton neuerButton = new JButton(buttonlabels[i]);
-			neuerButton.addActionListener(controller);
+			JButton neuerButton = new JButton(Statics.buttonlabels_nav[i]);
+			neuerButton.addActionListener(navigationsController);
 			leiste.add(neuerButton);
 		}
-		navFrame.add(leiste);
-		frameBauen();
+		this.add(leiste);
+		
+		this.setLayout(new FlowLayout());
+		this.setSize(700,150);
+		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+		this.setAlwaysOnTop(true);
 	}
-	public String[] getLabel()
-	{
-		return buttonlabels;
-	}
-	private void frameBauen()
-	{
-		navFrame.setLayout(new FlowLayout());
-		navFrame.setSize(700,150);
-		navFrame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-		navFrame.setAlwaysOnTop(true);
-		navFrame.setVisible(true);
-	}
+	public void showFrame()
+	{		
+		this.setVisible(true);
 
-	public void setListener(ActionListener controller)
-	{
-		this.controller = controller;
 	}
 }
 
