@@ -35,7 +35,7 @@ public class LoginView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_right, Statics.loc_up);
 	}
-	public void show()
+	public void anzeigen()
 	{
 		this.setVisible(true);
 	}
@@ -43,10 +43,5 @@ public class LoginView extends JFrame
 	public boolean isActiv()
 	{
 		return this.isDisplayable();
-	}
-	
-	public void hide()
-	{
-		this.setVisible(false);
 	}
 }

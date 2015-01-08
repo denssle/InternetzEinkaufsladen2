@@ -3,41 +3,69 @@ package view;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.ArtikelModel;
 import statics.Statics;
 
 public class ShopView extends JFrame
 {	
-	public ShopView(ActionListener shopController)
+	private Map<Integer, ArtikelModel> artikelMap;
+	private ActionListener shopController;
+	public ShopView(ActionListener shopController, Map<Integer, ArtikelModel> map)
 	{
+		this.shopController = shopController;
+		artikelMap = map;
+		
 		this.setTitle("Einkaufen");
 		this.setLayout(new FlowLayout());		
 		this.setSize(700,700);
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_left, Statics.loc_down);
+
+		JPanel reiter_zeile = new JPanel();
+		reiter_zeile.setLayout(new GridLayout(1, 3));
+		reiter_zeile.add(new JLabel("Artikelnummer: "));
+		reiter_zeile.add(new JLabel("Artikel: "));
+		reiter_zeile.add(new JLabel("Details: "));
 		
-		JPanel zeile = new JPanel();
-		int limit = 21;
-		zeile.setLayout(new GridLayout(limit+1, 3));
-		zeile.add(new JLabel("Artikelnummer: "));
-		zeile.add(new JLabel("Artikel: "));
-		zeile.add(new JLabel("Details: "));
 		
-		for(int i = 0; i < limit; i++)
-		{
-			zeile.add(new JLabel("ID"+i));
-	        zeile.add(new JLabel("Artikel Nr. "+i));
-	        JButton details = new JButton("Details");
-	        zeile.add(details);
-		}
-		this.add(zeile);
+		this.add(reiter_zeile);
+		this.add(artikel_liste());
 	}
-	public void show()
+	private JPanel artikel_liste()
+	{
+		JPanel artikel_liste_leiste = new JPanel();
+		artikel_liste_leiste.setLayout(new GridLayout(artikelMap.size(), 3));
+		
+		Iterator iterator = artikelMap.entrySet().iterator();
+		while(iterator.hasNext())
+		{
+			Map.Entry pairs = (Map.Entry)iterator.next();
+	        String key = pairs.getKey().toString();
+	        ArtikelModel value = (ArtikelModel) pairs.getValue();
+	        artikel_liste_leiste.add(new JLabel(key));
+	        artikel_liste_leiste.add(new JLabel(value.getName()));
+	        JButton details = new JButton("Details");
+	        details.setName(key);
+	        details.addActionListener(shopController);
+	        
+	        artikel_liste_leiste.add(details);
+		}
+		return artikel_liste_leiste;
+	}
+	public void setArtikelMap(Map<Integer, ArtikelModel> dieArtikel)
+	{
+		artikelMap = dieArtikel;
+	}
+	
+	public void anzeigen()
 	{
 		this.setVisible(true);
 	}
@@ -45,9 +73,5 @@ public class ShopView extends JFrame
 	public boolean isActiv()
 	{
 		return this.isDisplayable();
-	}
-	public void hide()
-	{
-		this.setVisible(false);
 	}
 }
