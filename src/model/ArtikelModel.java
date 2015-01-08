@@ -2,11 +2,17 @@ package model;
 
 public class ArtikelModel
 {
+	private static int artikelNr;
 	private int artikelId;
 	private String name;
 	private String preis;
 	private String beschreibung;
 	private String kategorie;
+	
+	public ArtikelModel()
+	{
+		artikelId = artikelNr++;
+	}
 	public int getArtikelId() {
 		return artikelId;
 	}
@@ -22,9 +28,7 @@ public class ArtikelModel
 	public String getKategorie() {
 		return kategorie;
 	}
-	public void setArtikelId(int artikelId) {
-		this.artikelId = artikelId;
-	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
