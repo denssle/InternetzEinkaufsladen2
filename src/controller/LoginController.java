@@ -6,18 +6,11 @@ import view.LoginView;
 
 public class LoginController implements ActionListener
 {
-	private static LoginView loginV = new LoginView();
+	private LoginView loginV = new LoginView(this);
 	
-	public static void loginAnzeigen()
+	public void loginAnzeigen()
 	{
-		if(loginV.isActiv())
-			loginV.reset();
-		loginV.anzeigen();
-	}
-
-	public void setListener(LoginController loginC)
-	{
-		loginV.setListener(loginC);
+		loginV.show();
 	}
 
 	public void actionPerformed(ActionEvent e)
