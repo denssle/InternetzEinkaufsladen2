@@ -56,6 +56,7 @@ public class ArtikelDAO
 		} 
 		catch (IOException e)
 		{
+			System.out.println(alleArtikel);
 			e.printStackTrace();
 		}
 	}
