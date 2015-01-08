@@ -33,7 +33,6 @@ public class NavigationsView extends JFrame
 	public void showFrame()
 	{		
 		this.setVisible(true);
-
 	}
 }
 
