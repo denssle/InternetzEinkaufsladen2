@@ -35,6 +35,7 @@ public class ShopView extends JFrame
 	        JButton details = new JButton("Details");
 	        zeile.add(details);
 		}
+		this.add(zeile);
 	}
 	public void show()
 	{

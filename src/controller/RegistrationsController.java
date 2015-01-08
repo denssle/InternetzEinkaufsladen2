@@ -6,21 +6,11 @@ import view.RegistrationsView;
 
 public class RegistrationsController implements ActionListener
 {
-	private static RegistrationsView regiV = new RegistrationsView();
+	private RegistrationsView regiV = new RegistrationsView(this);
 	
-	public static void regiAnzeigen()
+	public void regiAnzeigen()
 	{
-		//System.out.println("Is activ: " + regiV.isActiv());
-		if(regiV.isActiv())
-		{
-			regiV.hide();
-		}
-		regiV.anzeigen();
-	}
-
-	public void setListener(RegistrationsController registrationsC)
-	{
-		regiV.setListener(registrationsC);
+		regiV.show();
 	}
 
 	@Override

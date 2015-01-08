@@ -30,9 +30,13 @@ public class NavigationsView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 		this.setAlwaysOnTop(true);
 	}
-	public void showFrame()
+	public void show()
 	{		
 		this.setVisible(true);
+	}
+	public void hide()
+	{
+		this.setVisible(false);
 	}
 }
 

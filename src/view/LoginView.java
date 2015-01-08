@@ -19,11 +19,8 @@ public class LoginView extends JFrame
 	{
 		JPanel loginleiste = new JPanel();
 		loginleiste.setLayout(new FlowLayout());
-		
 		JTextField email = new JTextField("Email");
-		
 		JTextField passwort = new JTextField("Passwort");
-		
 		JButton ok = new JButton("Ok");
 		ok.addActionListener(loginController);
 		

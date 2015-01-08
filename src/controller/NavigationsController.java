@@ -9,13 +9,16 @@ import view.NavigationsView;
 public class NavigationsController implements ActionListener
 {
 	private NavigationsView navigationsV = new NavigationsView(this);
+	
 	private LoginController loginC = new LoginController();
 	private ShopController shopC = new ShopController();
 	private RegistrationsController regisC = new RegistrationsController();
+	private WarenkorbController warenkorbC = new WarenkorbController();
 	
 	public void navigationAnzeigen()
 	{
-		navigationsV.showFrame();
+		System.out.println("Navigation wird angezeigt");
+		navigationsV.show();
 	}
 	
 	public void actionPerformed(ActionEvent e)
@@ -35,6 +38,7 @@ public class NavigationsController implements ActionListener
 				}
 				if(Befehl.equals(Statics.buttonlabels_nav[2]))
 				{
+					warenkorbC.warenkorbAnzeigen();
 				}
 				if(Befehl.equals(Statics.buttonlabels_nav[3]))
 				{

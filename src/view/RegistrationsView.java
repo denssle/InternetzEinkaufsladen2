@@ -16,11 +16,14 @@ public class RegistrationsView extends JFrame
 {
 	private JTextField[] textFelder = new JTextField[Statics.benutzerlabels.length];
 
-	private JFrame regiFrame = new JFrame("Registration");
-	private ActionListener controller;
-
-	public void anzeigen()
+	public RegistrationsView(ActionListener registrationsController)
 	{
+		this.setTitle("Registration");
+		this.setLayout(new FlowLayout());		
+		this.setSize(700,700);
+		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
+		this.setLocation(Statics.loc_right, Statics.loc_down);
+		
 		JPanel zeile = new JPanel();
 		zeile.setLayout(new FlowLayout());
 		
@@ -35,31 +38,21 @@ public class RegistrationsView extends JFrame
 		}
 		
 		JButton ok = new JButton("Ok");
-		ok.addActionListener(controller);
+		ok.addActionListener(registrationsController);
 		zeile.add(ok);
-		
-		regiFrame.add(zeile);
-		bauFrame();
+		this.add(zeile);
 	}
-	
-	public void setListener(ActionListener controller)
-	{
-		this.controller = controller;
-	}
-	private void bauFrame()
-	{
-		regiFrame.setLayout(new FlowLayout());		
-		regiFrame.setSize(700,700);
-		regiFrame.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
-		regiFrame.setLocation(Statics.loc_right, Statics.loc_down);
-		regiFrame.setVisible(true);
-	}
+
 	public boolean isActiv()
 	{
-		return regiFrame.isDisplayable();
+		return this.isDisplayable();
+	}
+	public void show()
+	{
+		this.setVisible(true);
 	}
 	public void hide()
 	{
-		regiFrame.removeAll();
+		this.setVisible(false);
 	}
 }
