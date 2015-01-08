@@ -10,7 +10,7 @@ public class WarenkorbView extends JFrame
 	{
 	}
 	
-	public void show()
+	public void anzeigen()
 	{
 		this.setVisible(true);
 	}

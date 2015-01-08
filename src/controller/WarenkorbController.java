@@ -11,7 +11,7 @@ public class WarenkorbController implements ActionListener
 	
 	public void warenkorbAnzeigen()
 	{
-		warenkorbV.show();
+		warenkorbV.anzeigen();
 	}
 
 	public void actionPerformed(ActionEvent e)

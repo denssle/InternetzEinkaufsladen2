@@ -10,7 +10,7 @@ public class LoginController implements ActionListener
 	
 	public void loginAnzeigen()
 	{
-		loginV.show();
+		loginV.anzeigen();
 	}
 
 	public void actionPerformed(ActionEvent e)

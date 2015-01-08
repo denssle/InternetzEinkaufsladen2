@@ -17,8 +17,8 @@ public class NavigationsController implements ActionListener
 	
 	public void navigationAnzeigen()
 	{
-		System.out.println("Navigation wird angezeigt");
-		navigationsV.show();
+		//System.out.println("Navigation wird angezeigt");
+		navigationsV.anzeigen();
 	}
 	
 	public void actionPerformed(ActionEvent e)

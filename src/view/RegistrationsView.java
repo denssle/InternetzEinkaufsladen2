@@ -47,12 +47,8 @@ public class RegistrationsView extends JFrame
 	{
 		return this.isDisplayable();
 	}
-	public void show()
+	public void anzeigen()
 	{
 		this.setVisible(true);
-	}
-	public void hide()
-	{
-		this.setVisible(false);
 	}
 }

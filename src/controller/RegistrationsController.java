@@ -10,7 +10,7 @@ public class RegistrationsController implements ActionListener
 	
 	public void regiAnzeigen()
 	{
-		regiV.show();
+		regiV.anzeigen();
 	}
 
 	@Override
