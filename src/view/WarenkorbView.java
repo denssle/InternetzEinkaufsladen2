@@ -1,5 +1,8 @@
 package view;
 
-public class WarenkorbView {
+import javax.swing.JFrame;
+
+public class WarenkorbView extends JFrame
+{
 
 }

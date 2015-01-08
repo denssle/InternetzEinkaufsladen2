@@ -13,7 +13,7 @@ public class RegistrationsController implements ActionListener
 		//System.out.println("Is activ: " + regiV.isActiv());
 		if(regiV.isActiv())
 		{
-			regiV.reset();
+			regiV.hide();
 		}
 		regiV.anzeigen();
 	}

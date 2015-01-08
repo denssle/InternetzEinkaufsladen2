@@ -3,10 +3,13 @@ package view;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import statics.Statics;
 
 public class ShopView extends JFrame
 {	
@@ -16,7 +19,7 @@ public class ShopView extends JFrame
 		this.setLayout(new FlowLayout());		
 		this.setSize(700,700);
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
-		this.setLocation(0, 180);
+		this.setLocation(Statics.loc_left, Statics.loc_down);
 		
 		JPanel zeile = new JPanel();
 		int limit = 21;
@@ -33,7 +36,7 @@ public class ShopView extends JFrame
 	        zeile.add(details);
 		}
 	}
-	public void anzeigen()
+	public void show()
 	{
 		this.setVisible(true);
 	}
@@ -42,8 +45,8 @@ public class ShopView extends JFrame
 	{
 		return this.isDisplayable();
 	}
-	public void reset()
+	public void hide()
 	{
-		this.removeAll();
+		this.setVisible(false);
 	}
 }

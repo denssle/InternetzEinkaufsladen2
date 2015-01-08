@@ -9,6 +9,9 @@ import view.NavigationsView;
 public class NavigationsController implements ActionListener
 {
 	private NavigationsView navigationsV = new NavigationsView(this);
+	private LoginController loginC = new LoginController();
+	private ShopController shopC = new ShopController();
+	private RegistrationsController regisC = new RegistrationsController();
 	
 	public void navigationAnzeigen()
 	{
@@ -24,11 +27,11 @@ public class NavigationsController implements ActionListener
 			{
 				if(Befehl.equals(Statics.buttonlabels_nav[0]))
 				{
-					LoginController.loginAnzeigen();
+					loginC.loginAnzeigen();
 				}
 				if(Befehl.equals(Statics.buttonlabels_nav[1]))
 				{
-					ShopController.einkaufAnzeigen();
+					shopC.einkaufAnzeigen();
 				}
 				if(Befehl.equals(Statics.buttonlabels_nav[2]))
 				{
@@ -38,7 +41,7 @@ public class NavigationsController implements ActionListener
 				}
 				if(Befehl.equals(Statics.buttonlabels_nav[4]))
 				{
-					RegistrationsController.regiAnzeigen();
+					regisC.regiAnzeigen();
 				}
 			}	
 		}

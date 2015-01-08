@@ -6,11 +6,11 @@ import view.ShopView;
 
 public class ShopController implements ActionListener
 {
-	private ShopView einkaufsV = new ShopView(this);
+	private ShopView shopView = new ShopView(this);
 	
-	public static void einkaufAnzeigen()
+	public void einkaufAnzeigen()
 	{
-		einkaufsV.anzeigen();
+		shopView.show();
 	}
 
 	@Override

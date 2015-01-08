@@ -51,14 +51,14 @@ public class RegistrationsView extends JFrame
 		regiFrame.setLayout(new FlowLayout());		
 		regiFrame.setSize(700,700);
 		regiFrame.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
-		regiFrame.setLocation(710, 180);
+		regiFrame.setLocation(Statics.loc_right, Statics.loc_down);
 		regiFrame.setVisible(true);
 	}
 	public boolean isActiv()
 	{
 		return regiFrame.isDisplayable();
 	}
-	public void reset()
+	public void hide()
 	{
 		regiFrame.removeAll();
 	}
