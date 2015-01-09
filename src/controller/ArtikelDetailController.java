@@ -9,17 +9,29 @@ import model.ArtikelModel;
 public class ArtikelDetailController implements ActionListener
 {
 	private ArtikelDetailView view = new ArtikelDetailView(this);
+	private WarenkorbController warenkorbC = new WarenkorbController();
+	private ArtikelModel aktuellerArtikel;
 	
 	public void artikelDetailsZeigen(ArtikelModel artikel)
 	{
-		view.anzeigen(artikel);
+		aktuellerArtikel = artikel;
+		view.anzeigen(aktuellerArtikel);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		String befehl = e.getActionCommand();
-		System.out.println(befehl);
+		if(befehl.equals("Schliessen"))
+		{
+			aktuellerArtikel = null;
+			view.verstecken();
+		}
+		if(befehl.equals("Kaufen"))
+		{
+			System.out.println("Folgendes soll gekauft werden: "+aktuellerArtikel.getName());
+			warenkorbC.addArtikel(aktuellerArtikel);
+		}
 	}
 
 }

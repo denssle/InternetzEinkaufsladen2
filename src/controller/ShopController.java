@@ -26,13 +26,13 @@ public class ShopController implements ActionListener
 	private void testartikelAnlegen()
 	{
 		Random diceRoller = new Random();
-		for(int i = 1; i < 20; i ++)
+		for(int i = 1; i < 22; i ++)
 		{
 			ArtikelModel neuerArtikel = new ArtikelModel();
 			neuerArtikel.setName("Testartikel Nr.: "+(i-1));
 			neuerArtikel.setBeschreibung("Testbeschreibung: "+diceRoller.toString());
 			neuerArtikel.setKategorie("Testkategorie: " + diceRoller.nextBoolean());
-			neuerArtikel.setPreis(diceRoller.nextInt()*i + " Euro");
+			neuerArtikel.setPreis(diceRoller.nextInt() + " Euro");
 			dao.speichern(neuerArtikel);
 		}
 	}

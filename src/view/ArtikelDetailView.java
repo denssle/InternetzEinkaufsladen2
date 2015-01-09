@@ -28,11 +28,19 @@ public class ArtikelDetailView extends JFrame
 		this.add(struktur);
 		this.add(buttonMaker(artikelDetailController));
 	}
-	private Component buttonMaker(ActionListener artikelDetailController)
+	private JPanel buttonMaker(ActionListener artikelDetailController)
 	{
-		JButton button = new JButton("Kaufen");
-		button.addActionListener(artikelDetailController);
-		return button;
+		JPanel buttonPanel = new JPanel();
+		
+		JButton buybutton = new JButton("Kaufen");
+		buybutton.addActionListener(artikelDetailController);
+		
+		JButton exitbutton = new JButton("Schliessen");
+		exitbutton.addActionListener(artikelDetailController);
+		
+		buttonPanel.add(buybutton);
+		buttonPanel.add(exitbutton);
+		return buttonPanel;
 	}
 	private void strukturAnlegen(ArtikelModel anzuzeigenderArtikel)
 	{
@@ -56,5 +64,10 @@ public class ArtikelDetailView extends JFrame
 		this.setVisible(true);
 		this.setTitle(anzuzeigenderArtikel.getName());
 		strukturAnlegen(anzuzeigenderArtikel);
+		this.validate();
+	}
+	public void verstecken()
+	{
+		this.setVisible(false);
 	}
 }
