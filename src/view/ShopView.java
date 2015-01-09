@@ -31,15 +31,19 @@ public class ShopView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_left, Statics.loc_down);
 
+		
+		
+		this.add(reiterZeile());
+		this.add(artikel_liste_leiste);
+	}
+	private JPanel reiterZeile()
+	{
 		JPanel reiter_zeile = new JPanel();
 		reiter_zeile.setLayout(new GridLayout(1, 3));
 		reiter_zeile.add(new JLabel("Artikelnummer: "));
 		reiter_zeile.add(new JLabel("Artikel: "));
 		reiter_zeile.add(new JLabel("Details: "));
-		
-		
-		this.add(reiter_zeile);
-		this.add(artikel_liste_leiste);
+		return reiter_zeile;
 	}
 	private void artikel_liste_update()
 	{
