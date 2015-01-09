@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.JButton;
+
 import model.ArtikelModel;
 import persistence.ArtikelDAO;
 import view.ShopView;
@@ -30,6 +32,12 @@ public class ShopController implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		JButton pressedButton = (JButton) e.getSource();
+		String buttonName = pressedButton.getName();
 		
+		if(dao.artikelExists(buttonName))
+		{
+			System.out.println("Ist das ihr Arikel: "+dao.getArtikel(buttonName)+"?");
+		}
 	}
 }

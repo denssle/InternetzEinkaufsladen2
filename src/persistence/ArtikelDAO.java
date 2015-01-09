@@ -97,4 +97,17 @@ public class ArtikelDAO
 	{
 		return alleArtikel.size();
 	}
+	
+	public ArtikelModel getArtikel(String artikelNr)
+	{
+		//System.out.println(artikelNr);
+		int id = Integer.parseInt(artikelNr);
+		return alleArtikel.get(id);
+		
+	}
+	public boolean artikelExists(String artikelNr)
+	{
+		int id = Integer.parseInt(artikelNr);
+		return alleArtikel.containsKey(id);
+	}
 }

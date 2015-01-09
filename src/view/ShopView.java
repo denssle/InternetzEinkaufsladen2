@@ -18,6 +18,8 @@ public class ShopView extends JFrame
 {	
 	private Map<Integer, ArtikelModel> artikelMap;
 	private ActionListener shopController;
+	private JPanel artikel_liste_leiste = new JPanel();
+	
 	public ShopView(ActionListener shopController, Map<Integer, ArtikelModel> map)
 	{
 		this.shopController = shopController;
@@ -37,28 +39,27 @@ public class ShopView extends JFrame
 		
 		
 		this.add(reiter_zeile);
-		this.add(artikel_liste());
+		this.add(artikel_liste_leiste);
 	}
-	private JPanel artikel_liste()
+	private void artikel_liste_update()
 	{
-		JPanel artikel_liste_leiste = new JPanel();
-		artikel_liste_leiste.setLayout(new GridLayout(artikelMap.size(), 3));
+		artikel_liste_leiste.removeAll();
 		
+		artikel_liste_leiste.setLayout(new GridLayout(artikelMap.size(), 3));
 		Iterator iterator = artikelMap.entrySet().iterator();
 		while(iterator.hasNext())
 		{
 			Map.Entry pairs = (Map.Entry)iterator.next();
-	        String key = pairs.getKey().toString();
+	        String id_key = pairs.getKey().toString();
 	        ArtikelModel value = (ArtikelModel) pairs.getValue();
-	        artikel_liste_leiste.add(new JLabel(key));
+	        artikel_liste_leiste.add(new JLabel(id_key));
 	        artikel_liste_leiste.add(new JLabel(value.getName()));
 	        JButton details = new JButton("Details");
-	        details.setName(key);
+	        details.setName(id_key);
 	        details.addActionListener(shopController);
 	        
 	        artikel_liste_leiste.add(details);
 		}
-		return artikel_liste_leiste;
 	}
 	public void setArtikelMap(Map<Integer, ArtikelModel> dieArtikel)
 	{
@@ -68,6 +69,7 @@ public class ShopView extends JFrame
 	public void anzeigen()
 	{
 		this.setVisible(true);
+		artikel_liste_update();
 	}
 
 	public boolean isActiv()
