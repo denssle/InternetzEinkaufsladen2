@@ -14,15 +14,16 @@ import model.ArtikelModel;
 
 public class ArtikelDAO
 {
-	private String pfad = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
-	private File artikelSpeicherOrt = new File(pfad);
+	//private String pfad = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
+	//private File artikelSpeicherOrt = new File(pfad);
 	private Map<Integer, ArtikelModel> alleArtikel = alteArtikelAuslesen();
 	
 	private Map<Integer, ArtikelModel> alteArtikelAuslesen()
 	{
 		validiereSpeicher();
 		
-		Map<Integer, ArtikelModel> ausgeleseneArtikel;
+		Map<Integer, ArtikelModel> ausgeleseneArtikel = new HashMap<Integer, ArtikelModel>();
+		/*
 		try
 		{
 			FileInputStream fs = new FileInputStream(pfad);
@@ -35,36 +36,31 @@ public class ArtikelDAO
 			System.out.println("Datei konnte nicht gelesen werden.");
 			ausgeleseneArtikel = new HashMap<Integer, ArtikelModel>();
 		}
-		//System.out.println(ausgeleseneArtikel.size());
-		return ausgeleseneArtikel;
+		System.out.println(ausgeleseneArtikel.size());
+		*/
+		return ausgeleseneArtikel; 
 	}
 
 	public void speichern(ArtikelModel zuSpeichernderArtikel)
 	{
 		validiereSpeicher();
 		
-		try
-		{
-			alleArtikel.put(zuSpeichernderArtikel.getArtikelId(), zuSpeichernderArtikel);
-			FileOutputStream fs = new FileOutputStream(pfad);
-			ObjectOutputStream os = new ObjectOutputStream(fs);
-			System.out.println("Datei wird beschrieben.");
-			os.writeObject(alleArtikel);
-			System.out.println("os wird geschlossen!");
-			os.close();
-			System.out.println(zuSpeichernderArtikel.getName() + " wurde gespeichert.\n");
-		} 
-		catch (IOException e)
-		{
-			System.out.println(alleArtikel);
-			e.printStackTrace();
-		}
+		alleArtikel.put(zuSpeichernderArtikel.getArtikelId(), zuSpeichernderArtikel);
+		/*
+		FileOutputStream fs = new FileOutputStream(pfad);
+		ObjectOutputStream os = new ObjectOutputStream(fs);
+		System.out.println("Datei wird beschrieben.");
+		os.writeObject(alleArtikel);
+		System.out.println("os wird geschlossen!");
+		os.close();
+		*/
+		System.out.println(zuSpeichernderArtikel.getName() + " wurde gespeichert.\n");
 	}
 	
 	private void validiereSpeicher()
 	{
 		System.out.println("Artikelspeichervalidierung gestartet!");
-
+		/*
 		if(!artikelSpeicherOrt.exists())
         {
 			System.out.println("Datei nicht vorhanden.");
@@ -89,6 +85,7 @@ public class ArtikelDAO
 		{
 			System.out.println("Datei gefunden!\nValidierung erfolgreich abgeschlossen!");
 		}
+		*/
 	}
 	
 	public Map<Integer, ArtikelModel> getAlleArtikel()
