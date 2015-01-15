@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -25,14 +26,14 @@ public class WarenkorbView extends JFrame
 	
 	public WarenkorbView()
 	{
-		this.setLayout(new FlowLayout());	
+		this.setLayout(new BorderLayout());	
 		this.setTitle("Einkaufswagen");
 		this.setSize(700,700);
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_right, Statics.loc_down);
 		
-		this.add(reiterLeisteErstellen());
-		this.add(artikelLeiste);
+		this.add(reiterLeisteErstellen(), BorderLayout.NORTH);
+		this.add(artikelLeiste, BorderLayout.SOUTH);//bei SOUTH kommnen die Artikel von unten
 	}
 	
 	private JPanel reiterLeisteErstellen()
@@ -41,8 +42,7 @@ public class WarenkorbView extends JFrame
 		reiterLeiste.setLayout(new GridLayout(1,3));
 		reiterLeiste.add(new JLabel("Artikel Nr.:"));
 		reiterLeiste.add(new JLabel("Artikel Name:"));
-		reiterLeiste.add(new JLabel("      "));
-		
+		reiterLeiste.add(new JLabel("Artikel entfernen?:"));
 		return reiterLeiste;
 	}
 
@@ -56,7 +56,6 @@ public class WarenkorbView extends JFrame
 	{
 		artikelLeiste.removeAll();
 		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size(),3));
-		
 		System.out.println("Im Warenkorb befinden sich: ");
 		Iterator<Entry<Integer, ArtikelModel>> iterator = aktuellerInhalt.entrySet().iterator();
 		while(iterator.hasNext())
