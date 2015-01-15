@@ -35,7 +35,7 @@ public class ShopController implements ActionListener
 			neuerArtikel.setName("Testartikel Nr.: "+(i-1));
 			neuerArtikel.setBeschreibung("Testbeschreibung: "+diceRoller.toString());
 			neuerArtikel.setKategorie("Testkategorie: " + diceRoller.nextBoolean());
-			neuerArtikel.setPreis(diceRoller.nextInt() + " Euro");
+			neuerArtikel.setPreis(diceRoller.nextInt());
 			dao.speichern(neuerArtikel);
 		}
 	}

@@ -45,11 +45,12 @@ public class WarenkorbView extends JFrame
 	{
 		int artikelanzahl = 0;
 		artikelLeiste.removeAll();
-		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size()+1,3));
+		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size()+1,4));
 		
 		artikelLeiste.add(new JLabel("Artikel Nr.:"));
 		artikelLeiste.add(new JLabel("Artikel Name:"));
-		artikelLeiste.add(new JLabel("Artikel entfernen?:"));
+		artikelLeiste.add(new JLabel("Preis:"));
+		artikelLeiste.add(new JLabel("Entfernen?:"));
 		
 		System.out.println("Im Warenkorb befinden sich: ");
 		Iterator<Entry<Integer, ArtikelModel>> iterator = aktuellerInhalt.entrySet().iterator();
@@ -64,7 +65,7 @@ public class WarenkorbView extends JFrame
 			artikelanzahl++;
 			artikelLeiste.add(new JLabel(artikelanzahl+". Artikel"));
 			artikelLeiste.add(new JLabel(value.getName()));
-	        
+			artikelLeiste.add(new JLabel(value.getPreis() + "Euro"));
 	        JButton button = new JButton("Entfernen");
 	        button.setName(id_key);
 	        button.addActionListener(warenkorbController);

@@ -5,7 +5,7 @@ public class ArtikelModel
 	private static int artikelNr;
 	private int artikelId;
 	private String name;
-	private String preis;
+	private double preis;
 	private String beschreibung;
 	private String kategorie;
 	
@@ -19,7 +19,7 @@ public class ArtikelModel
 	public String getName() {
 		return name;
 	}
-	public String getPreis() {
+	public double getPreis() {
 		return preis;
 	}
 	public String getBeschreibung() {
@@ -32,7 +32,7 @@ public class ArtikelModel
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setPreis(String preis) {
+	public void setPreis(double preis) {
 		this.preis = preis;
 	}
 	public void setBeschreibung(String beschreibung) {

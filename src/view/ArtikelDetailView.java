@@ -56,7 +56,7 @@ public class ArtikelDetailView extends JFrame
 		struktur.add(new JLabel(anzuzeigenderArtikel.getKategorie()));
 		
 		struktur.add(new JLabel("Preis"));
-		struktur.add(new JLabel(anzuzeigenderArtikel.getPreis()));
+		struktur.add(new JLabel(anzuzeigenderArtikel.getPreis()+" Euro"));
 	}
 	public void anzeigen(ArtikelModel anzuzeigenderArtikel)
 	{
