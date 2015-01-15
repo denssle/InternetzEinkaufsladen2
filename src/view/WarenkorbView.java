@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.WarenkorbController;
 import model.ArtikelModel;
 import statics.Statics;
 
@@ -22,7 +23,7 @@ public class WarenkorbView extends JFrame
 {	
 	JPanel artikelLeiste = new JPanel();
 	
-	public WarenkorbView(ActionListener warenkorbController)
+	public WarenkorbView()
 	{
 		this.setLayout(new FlowLayout());	
 		this.setTitle("Einkaufswagen");
@@ -51,7 +52,7 @@ public class WarenkorbView extends JFrame
 		this.validate();
 	}
 
-	public void addArtikel(Map<Integer, ArtikelModel> aktuellerInhalt)
+	public void addArtikel(Map<Integer, ArtikelModel> aktuellerInhalt, ActionListener warenkorbController)
 	{
 		artikelLeiste.removeAll();
 		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size(),3));
@@ -71,6 +72,8 @@ public class WarenkorbView extends JFrame
 	        
 	        JButton button = new JButton("Entfernen");
 	        button.setName(id_key);
+	        button.addActionListener(warenkorbController);
+	        
 	        artikelLeiste.add(button);
 		}
 		System.out.println("Warenkorb Ende. \n");
