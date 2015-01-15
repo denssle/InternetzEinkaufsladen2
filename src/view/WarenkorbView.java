@@ -32,18 +32,7 @@ public class WarenkorbView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_right, Statics.loc_down);
 		
-		//this.add(reiterLeisteErstellen(), BorderLayout.NORTH);
 		this.add(artikelLeiste, BorderLayout.NORTH);//bei SOUTH kommnen die Artikel von unten
-	}
-	
-	private JPanel reiterLeisteErstellen()
-	{
-		JPanel reiterLeiste = new JPanel();
-		reiterLeiste.setLayout(new GridLayout(1,3));
-		reiterLeiste.add(new JLabel("Artikel Nr.:"));
-		reiterLeiste.add(new JLabel("Artikel Name:"));
-		reiterLeiste.add(new JLabel("Artikel entfernen?:"));
-		return reiterLeiste;
 	}
 
 	public void anzeigen()
