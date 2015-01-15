@@ -32,8 +32,8 @@ public class WarenkorbView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_right, Statics.loc_down);
 		
-		this.add(reiterLeisteErstellen(), BorderLayout.NORTH);
-		this.add(artikelLeiste, BorderLayout.SOUTH);//bei SOUTH kommnen die Artikel von unten
+		//this.add(reiterLeisteErstellen(), BorderLayout.NORTH);
+		this.add(artikelLeiste, BorderLayout.NORTH);//bei SOUTH kommnen die Artikel von unten
 	}
 	
 	private JPanel reiterLeisteErstellen()
@@ -54,8 +54,14 @@ public class WarenkorbView extends JFrame
 
 	public void addArtikel(Map<Integer, ArtikelModel> aktuellerInhalt, ActionListener warenkorbController)
 	{
+		int artikelanzahl = 0;
 		artikelLeiste.removeAll();
-		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size(),3));
+		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size()+1,3));
+		
+		artikelLeiste.add(new JLabel("Artikel Nr.:"));
+		artikelLeiste.add(new JLabel("Artikel Name:"));
+		artikelLeiste.add(new JLabel("Artikel entfernen?:"));
+		
 		System.out.println("Im Warenkorb befinden sich: ");
 		Iterator<Entry<Integer, ArtikelModel>> iterator = aktuellerInhalt.entrySet().iterator();
 		while(iterator.hasNext())
@@ -66,7 +72,8 @@ public class WarenkorbView extends JFrame
 	        
 			System.out.println(value.getName());
 			
-			artikelLeiste.add(new JLabel(id_key));
+			artikelanzahl++;
+			artikelLeiste.add(new JLabel(artikelanzahl+". Artikel"));
 			artikelLeiste.add(new JLabel(value.getName()));
 	        
 	        JButton button = new JButton("Entfernen");
