@@ -13,7 +13,6 @@ public class NavigationsController implements ActionListener
 	private LoginController loginC = new LoginController();
 	private ShopController shopC = new ShopController();
 	private RegistrationsController regisC = new RegistrationsController();
-	private WarenkorbController warenkorbC = new WarenkorbController();
 	
 	public void navigationAnzeigen()
 	{
@@ -38,7 +37,7 @@ public class NavigationsController implements ActionListener
 				}
 				if(Befehl.equals(Statics.buttonlabels_nav[2]))
 				{
-					warenkorbC.warenkorbAnzeigen();
+					shopC.warenkorbAnzeigen();
 				}
 				if(Befehl.equals(Statics.buttonlabels_nav[3]))
 				{

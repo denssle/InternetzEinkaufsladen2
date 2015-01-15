@@ -100,7 +100,7 @@ public class ArtikelDAO
 	
 	public ArtikelModel getArtikel(String artikelNr)
 	{
-		//System.out.println(artikelNr);
+		System.out.println(artikelNr);
 		int id = Integer.parseInt(artikelNr);
 		return alleArtikel.get(id);
 		

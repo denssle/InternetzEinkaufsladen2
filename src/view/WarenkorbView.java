@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,7 +40,7 @@ public class WarenkorbView extends JFrame
 		reiterLeiste.setLayout(new GridLayout(1,3));
 		reiterLeiste.add(new JLabel("Artikel Nr.:"));
 		reiterLeiste.add(new JLabel("Artikel Name:"));
-		reiterLeiste.add(new JLabel("   "));
+		reiterLeiste.add(new JLabel("      "));
 		
 		return reiterLeiste;
 	}
@@ -47,34 +48,29 @@ public class WarenkorbView extends JFrame
 	public void anzeigen()
 	{
 		this.setVisible(true);
-		this.validate();
 	}
 
 	public void addArtikel(Map<Integer, ArtikelModel> aktuellerInhalt)
 	{
 		artikelLeiste.removeAll();
-		artikelLeiste.setLayout(new FlowLayout());
+		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size(),3));
 		
-		Iterator iterator = aktuellerInhalt.entrySet().iterator();
+		Iterator<Entry<Integer, ArtikelModel>> iterator = aktuellerInhalt.entrySet().iterator();
 		while(iterator.hasNext())
-		{
-			JPanel zeile = new JPanel();
-			zeile.setLayout(new GridLayout(1,3));
+		{	
 			Map.Entry pairs = (Map.Entry)iterator.next();
 	        String id_key = pairs.getKey().toString();
 	        ArtikelModel value = (ArtikelModel) pairs.getValue();
 	        
 			System.out.println("Aktueller Warenkorb"+value.getName());
-
-	        zeile.add(new JLabel("id key"));
-	        zeile.add(new JLabel(value.getName()));
+			
+			artikelLeiste.add(new JLabel(id_key));
+			artikelLeiste.add(new JLabel(value.getName()));
 	        
 	        JButton button = new JButton("Entfernen");
 	        button.setName(id_key);
-	        zeile.add(button);
-	        
-	        artikelLeiste.add(zeile);
+	        artikelLeiste.add(button);
 		}
-		artikelLeiste.validate();
+		this.repaint();
 	}
 }

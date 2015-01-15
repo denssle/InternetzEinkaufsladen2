@@ -11,13 +11,15 @@ import javax.swing.JButton;
 
 import model.ArtikelModel;
 import persistence.ArtikelDAO;
+import view.ArtikelDetailView;
 import view.ShopView;
 
 public class ShopController implements ActionListener
 {
 	private ArtikelDAO dao = new ArtikelDAO();
 	private ShopView shopView = new ShopView(this, dao.getAlleArtikel());
-	private ArtikelDetailController adc = new ArtikelDetailController();
+	private WarenkorbController warenkorbC = new WarenkorbController();
+	private ArtikelDetailView artikelView = new ArtikelDetailView(this);
 	
 	public ShopController()
 	{
@@ -40,17 +42,37 @@ public class ShopController implements ActionListener
 	{
 		shopView.anzeigen();
 	}
-
+	
+	public void warenkorbAnzeigen()
+	{
+		warenkorbC.anzeigen();
+	}
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		JButton pressedButton = (JButton) e.getSource();
 		String buttonName = pressedButton.getName();
-		
-		if(dao.artikelExists(buttonName))
+		String befehl = e.getActionCommand();
+		ArtikelModel aktuellerArtikel = null;
+		System.out.println("buttonName:"+buttonName+" befehl:"+ befehl);
+		if(buttonName != null)
 		{
-			System.out.println("Ist das ihr Arikel: "+dao.getArtikel(buttonName).getName()+"?");
-			adc.artikelDetailsZeigen(dao.getArtikel(buttonName));
+			if(dao.artikelExists(buttonName))
+			{
+				aktuellerArtikel = dao.getArtikel(buttonName);
+				System.out.println("Detailierter Artikel: "+aktuellerArtikel.getName());
+				artikelView.anzeigen(aktuellerArtikel);
+			}
+		}
+		
+		if(befehl.equals("Schliessen"))
+		{
+			artikelView.verstecken();
+			aktuellerArtikel = null;
+		}
+		if(befehl.equals("Kaufen"))
+		{
+			System.out.println("Folgendes soll gekauft werden: "+ aktuellerArtikel.getName());
 		}
 	}
 }

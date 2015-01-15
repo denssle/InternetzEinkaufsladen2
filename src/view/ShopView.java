@@ -31,8 +31,6 @@ public class ShopView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_left, Statics.loc_down);
 
-		
-		
 		this.add(reiterZeile());
 		this.add(artikel_liste_leiste);
 	}
@@ -64,6 +62,7 @@ public class ShopView extends JFrame
 	        
 	        artikel_liste_leiste.add(details);
 		}
+		artikel_liste_leiste.validate();
 	}
 	public void setArtikelMap(Map<Integer, ArtikelModel> dieArtikel)
 	{
@@ -74,10 +73,5 @@ public class ShopView extends JFrame
 	{
 		this.setVisible(true);
 		artikel_liste_update();
-	}
-
-	public boolean isActiv()
-	{
-		return this.isDisplayable();
 	}
 }

@@ -14,7 +14,7 @@ public class WarenkorbController implements ActionListener
 	private Map<Integer, ArtikelModel> aktuellerInhalt = new HashMap<Integer, ArtikelModel>();
 	private static int id = 0;
 	
-	public void warenkorbAnzeigen()
+	public void anzeigen()
 	{
 		warenkorbV.anzeigen();
 		warenkorbV.addArtikel(aktuellerInhalt);
@@ -28,7 +28,10 @@ public class WarenkorbController implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String befehl = e.getActionCommand();
-		System.out.println(befehl);
+		if(befehl.equals("Entfernen"))
+		{
+			System.out.println(befehl);
+		}
 	}
 
 	
