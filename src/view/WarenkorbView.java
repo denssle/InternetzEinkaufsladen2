@@ -48,6 +48,7 @@ public class WarenkorbView extends JFrame
 	public void anzeigen()
 	{
 		this.setVisible(true);
+		this.validate();
 	}
 
 	public void addArtikel(Map<Integer, ArtikelModel> aktuellerInhalt)
@@ -55,6 +56,7 @@ public class WarenkorbView extends JFrame
 		artikelLeiste.removeAll();
 		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size(),3));
 		
+		System.out.println("Im Warenkorb befinden sich: ");
 		Iterator<Entry<Integer, ArtikelModel>> iterator = aktuellerInhalt.entrySet().iterator();
 		while(iterator.hasNext())
 		{	
@@ -62,7 +64,7 @@ public class WarenkorbView extends JFrame
 	        String id_key = pairs.getKey().toString();
 	        ArtikelModel value = (ArtikelModel) pairs.getValue();
 	        
-			System.out.println("Aktueller Warenkorb"+value.getName());
+			System.out.println(value.getName());
 			
 			artikelLeiste.add(new JLabel(id_key));
 			artikelLeiste.add(new JLabel(value.getName()));
@@ -71,6 +73,7 @@ public class WarenkorbView extends JFrame
 	        button.setName(id_key);
 	        artikelLeiste.add(button);
 		}
-		this.repaint();
+		System.out.println("Warenkorb Ende. \n");
+		this.validate();
 	}
 }

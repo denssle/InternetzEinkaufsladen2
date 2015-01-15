@@ -20,6 +20,7 @@ public class ShopController implements ActionListener
 	private ShopView shopView = new ShopView(this, dao.getAlleArtikel());
 	private WarenkorbController warenkorbC = new WarenkorbController();
 	private ArtikelDetailView artikelView = new ArtikelDetailView(this);
+	private ArtikelModel aktuellerArtikel = null;
 	
 	public ShopController()
 	{
@@ -53,7 +54,6 @@ public class ShopController implements ActionListener
 		JButton pressedButton = (JButton) e.getSource();
 		String buttonName = pressedButton.getName();
 		String befehl = e.getActionCommand();
-		ArtikelModel aktuellerArtikel = null;
 		System.out.println("buttonName:"+buttonName+" befehl:"+ befehl);
 		if(buttonName != null)
 		{
@@ -73,6 +73,9 @@ public class ShopController implements ActionListener
 		if(befehl.equals("Kaufen"))
 		{
 			System.out.println("Folgendes soll gekauft werden: "+ aktuellerArtikel.getName());
+			warenkorbC.addArtikel(aktuellerArtikel);
+			artikelView.verstecken();
+			aktuellerArtikel = null;
 		}
 	}
 }

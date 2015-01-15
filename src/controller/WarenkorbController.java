@@ -30,7 +30,7 @@ public class WarenkorbController implements ActionListener
 		String befehl = e.getActionCommand();
 		if(befehl.equals("Entfernen"))
 		{
-			System.out.println(befehl);
+			System.out.println("Warenkorb: "+befehl);
 		}
 	}
 
