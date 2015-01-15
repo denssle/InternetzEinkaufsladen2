@@ -31,23 +31,19 @@ public class ShopView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_left, Statics.loc_down);
 
-		this.add(reiterZeile());
 		this.add(artikel_liste_leiste);
 	}
-	private JPanel reiterZeile()
-	{
-		JPanel reiter_zeile = new JPanel();
-		reiter_zeile.setLayout(new GridLayout(1, 3));
-		reiter_zeile.add(new JLabel("Artikelnummer: "));
-		reiter_zeile.add(new JLabel("Artikel: "));
-		reiter_zeile.add(new JLabel("Details: "));
-		return reiter_zeile;
-	}
+	
 	private void artikel_liste_update()
 	{
 		artikel_liste_leiste.removeAll();
 		
-		artikel_liste_leiste.setLayout(new GridLayout(artikelMap.size(), 3));
+		artikel_liste_leiste.setLayout(new GridLayout(artikelMap.size()+1, 3));
+		
+		artikel_liste_leiste.add(new JLabel("Artikelnummer: "));
+		artikel_liste_leiste.add(new JLabel("Artikel: "));
+		artikel_liste_leiste.add(new JLabel("Details: "));
+		
 		Iterator iterator = artikelMap.entrySet().iterator();
 		while(iterator.hasNext())
 		{
