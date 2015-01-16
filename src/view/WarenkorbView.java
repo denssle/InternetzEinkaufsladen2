@@ -1,14 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
@@ -18,16 +12,20 @@ import javax.swing.JPanel;
 
 import controller.WarenkorbController;
 import model.ArtikelModel;
+import model.WarenkorbModel;
 import statics.Statics;
 
-public class WarenkorbView extends JFrame
+public class WarenkorbView extends JFrame implements Observer
 {	
 	private JPanel artikelLeiste = new JPanel();
 	private JPanel summenPanel = new JPanel();
 	private double summe = 0;
+
+    private WarenkorbController controller;
 	
-	public WarenkorbView()
+	public WarenkorbView(WarenkorbController controller)
 	{
+        this.controller = controller;
 		this.setLayout(new BorderLayout());	
 		this.setTitle("Einkaufswagen");
 		this.setSize(700,700);
@@ -50,12 +48,15 @@ public class WarenkorbView extends JFrame
 		this.validate();
 	}
 
-	public void addArtikel(Map<Integer, ArtikelModel> aktuellerInhalt, ActionListener warenkorbController)
-	{
+    @Override
+    public void update(Observable o, Object arg) {
+
+        WarenkorbModel warenkorbModel = (WarenkorbModel) o;
+
 		int artikelanzahl = 0;
 		summe = 0;
 		artikelLeiste.removeAll();
-		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size()+1,4));
+		artikelLeiste.setLayout(new GridLayout(warenkorbModel.getArtikelMap().size()+1,4));
 		
 		artikelLeiste.add(new JLabel("Artikel Nr.:"));
 		artikelLeiste.add(new JLabel("Artikel Name:"));
@@ -63,23 +64,22 @@ public class WarenkorbView extends JFrame
 		artikelLeiste.add(new JLabel("Entfernen?:"));
 		
 		System.out.println("Im Warenkorb befinden sich: ");
-		Iterator<Entry<Integer, ArtikelModel>> iterator = aktuellerInhalt.entrySet().iterator();
+		Iterator<Entry<ArtikelModel, Integer>> iterator = warenkorbModel.getArtikelMap().entrySet().iterator();
 		while(iterator.hasNext())
 		{	
 			Map.Entry pairs = (Map.Entry)iterator.next();
-	        String id_key = pairs.getKey().toString();
-	        ArtikelModel value = (ArtikelModel) pairs.getValue();
-	        
-			System.out.println(value.getName());
+	        ArtikelModel artikelModel = (ArtikelModel) pairs.getKey();
+
+			System.out.println(artikelModel.getName());
 			
 			artikelanzahl++;
 			artikelLeiste.add(new JLabel(artikelanzahl+". Artikel"));
-			artikelLeiste.add(new JLabel(value.getName()));
-			artikelLeiste.add(new JLabel(value.getPreis() + "Euro"));
-			setSumme(value.getPreis());
+			artikelLeiste.add(new JLabel(artikelModel.getName()));
+			artikelLeiste.add(new JLabel(artikelModel.getPreis() + "Euro"));
+			setSumme(artikelModel.getPreis());
 	        JButton button = new JButton("Entfernen");
-	        button.setName(id_key);
-	        button.addActionListener(warenkorbController);
+	        button.setName(artikelModel.getArtikelId().toString());
+	        button.addActionListener(controller);
 	        
 	        artikelLeiste.add(button);
 	        System.out.println("Warenkorbsumme: "+summe);

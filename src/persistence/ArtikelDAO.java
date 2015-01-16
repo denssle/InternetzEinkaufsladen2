@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import model.ArtikelModel;
 
@@ -16,13 +17,13 @@ public class ArtikelDAO
 {
 	//private String pfad = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
 	//private File artikelSpeicherOrt = new File(pfad);
-	private Map<Integer, ArtikelModel> alleArtikel = alteArtikelAuslesen();
+	private Map<UUID, ArtikelModel> alleArtikel = alteArtikelAuslesen();
 	
-	private Map<Integer, ArtikelModel> alteArtikelAuslesen()
+	private Map<UUID, ArtikelModel> alteArtikelAuslesen()
 	{
 		validiereSpeicher();
 		
-		Map<Integer, ArtikelModel> ausgeleseneArtikel = new HashMap<Integer, ArtikelModel>();
+		Map<UUID, ArtikelModel> ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
 		/*
 		try
 		{
@@ -88,7 +89,7 @@ public class ArtikelDAO
 		*/
 	}
 	
-	public Map<Integer, ArtikelModel> getAlleArtikel()
+	public Map<UUID, ArtikelModel> getAlleArtikel()
 	{
 		return alleArtikel;
 	}

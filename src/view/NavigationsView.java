@@ -17,6 +17,7 @@ public class NavigationsView extends JFrame
 	{
 		this.setTitle("Internetzladen 2");
 		JPanel leiste = new JPanel();
+
 		for(int i = 0; i< Statics.buttonlabels_nav.length; i++)
 		{
 			JButton neuerButton = new JButton(Statics.buttonlabels_nav[i]);
@@ -30,6 +31,7 @@ public class NavigationsView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 		this.setAlwaysOnTop(true);
 	}
+
 	public void anzeigen()
 	{		
 		this.setVisible(true);

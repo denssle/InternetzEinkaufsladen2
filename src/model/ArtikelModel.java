@@ -1,9 +1,11 @@
 package model;
 
+import java.util.Random;
+import java.util.UUID;
+
 public class ArtikelModel
 {
-	private static int artikelNr;
-	private int artikelId;
+	private UUID artikelId;
 	private String name;
 	private double preis;
 	private String beschreibung;
@@ -11,9 +13,9 @@ public class ArtikelModel
 	
 	public ArtikelModel()
 	{
-		artikelId = artikelNr++;
+		artikelId = UUID.randomUUID();
 	}
-	public int getArtikelId() {
+	public UUID getArtikelId() {
 		return artikelId;
 	}
 	public String getName() {

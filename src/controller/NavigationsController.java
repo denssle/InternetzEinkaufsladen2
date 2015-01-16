@@ -8,13 +8,19 @@ import view.NavigationsView;
 
 public class NavigationsController implements ActionListener
 {
-	private NavigationsView navigationsV = new NavigationsView(this);
-	
-	private LoginController loginC = new LoginController();
-	private ShopController shopC = new ShopController();
-	private RegistrationsController regisC = new RegistrationsController();
-	
-	public void navigationAnzeigen()
+	private NavigationsView navigationsV;
+	private LoginController loginC;
+	private ShopController shopC;
+	private RegistrationsController regisC;
+
+    public NavigationsController() {
+        this.navigationsV = new NavigationsView(this);
+        loginC = new LoginController();
+        shopC = new ShopController();
+        regisC = new RegistrationsController();
+    }
+
+    public void navigationAnzeigen()
 	{
 		//System.out.println("Navigation wird angezeigt");
 		navigationsV.anzeigen();
@@ -22,27 +28,27 @@ public class NavigationsController implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		String Befehl = e.getActionCommand();
+		String actionCommand = e.getActionCommand();
 		for(int i = 0; i<Statics.buttonlabels_nav.length; i++)
 		{
-			if (Befehl.equals(Statics.buttonlabels_nav[i]))
+			if (actionCommand.equals(Statics.buttonlabels_nav[i]))
 			{
-				if(Befehl.equals(Statics.buttonlabels_nav[0]))
+				if(actionCommand.equals(Statics.ANMELDEN))
 				{
 					loginC.loginAnzeigen();
 				}
-				if(Befehl.equals(Statics.buttonlabels_nav[1]))
+				if(actionCommand.equals(Statics.buttonlabels_nav[1]))
 				{
 					shopC.einkaufAnzeigen();
 				}
-				if(Befehl.equals(Statics.buttonlabels_nav[2]))
+				if(actionCommand.equals(Statics.buttonlabels_nav[2]))
 				{
 					shopC.warenkorbAnzeigen();
 				}
-				if(Befehl.equals(Statics.buttonlabels_nav[3]))
+				if(actionCommand.equals(Statics.buttonlabels_nav[3]))
 				{
 				}
-				if(Befehl.equals(Statics.buttonlabels_nav[4]))
+				if(actionCommand.equals(Statics.buttonlabels_nav[4]))
 				{
 					regisC.regiAnzeigen();
 				}

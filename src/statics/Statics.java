@@ -2,6 +2,8 @@ package statics;
 
 public class Statics
 {
+    public static final String ANMELDEN = "Anmelden";
+
 	public static final String[] buttonlabels_nav = 
 		{
 		"Anmelden", 

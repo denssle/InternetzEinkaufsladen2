@@ -26,6 +26,8 @@ public class ShopController implements ActionListener
 	{
 		testartikelAnlegen();
 	}
+
+
 	private void testartikelAnlegen()
 	{
 		Random diceRoller = new Random();
