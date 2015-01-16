@@ -41,7 +41,7 @@ public class WarenkorbView extends JFrame
 	private void updateSumme()
 	{
 		summenPanel.removeAll();
-		summenPanel.add(new JLabel("Summe:"+summe));
+		summenPanel.add(new JLabel("Aktuelle Summe: "+summe+" Euro"));
 	}
 
 	public void anzeigen()
