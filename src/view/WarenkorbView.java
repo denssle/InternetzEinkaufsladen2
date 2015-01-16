@@ -23,7 +23,7 @@ import statics.Statics;
 public class WarenkorbView extends JFrame
 {	
 	private JPanel artikelLeiste = new JPanel();
-	private int summe = 0;
+	private double summe = 0;
 	
 	public WarenkorbView()
 	{
@@ -81,6 +81,7 @@ public class WarenkorbView extends JFrame
 	        button.addActionListener(warenkorbController);
 	        
 	        artikelLeiste.add(button);
+	        System.out.println("Warenkorbsumme: "+summe);
 		}
 		System.out.println("Warenkorb Ende. \n");
 		this.validate();
