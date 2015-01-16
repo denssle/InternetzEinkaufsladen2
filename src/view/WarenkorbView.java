@@ -23,6 +23,7 @@ import statics.Statics;
 public class WarenkorbView extends JFrame
 {	
 	private JPanel artikelLeiste = new JPanel();
+	private JPanel summenPanel = new JPanel();
 	private double summe = 0;
 	
 	public WarenkorbView()
@@ -34,13 +35,13 @@ public class WarenkorbView extends JFrame
 		this.setLocation(Statics.loc_right, Statics.loc_down);
 		
 		this.add(artikelLeiste, BorderLayout.NORTH);//bei SOUTH kommnen die Artikel von unten :)
-		this.add(summeAnhengen(), BorderLayout.SOUTH);
+		this.add(summenPanel, BorderLayout.SOUTH);
 	}
 
-	private JPanel summeAnhengen() {
-		JPanel summenPanel = new JPanel();
+	private void updateSumme()
+	{
+		summenPanel.removeAll();
 		summenPanel.add(new JLabel("Summe:"+summe));
-		return summenPanel;
 	}
 
 	public void anzeigen()
@@ -75,7 +76,7 @@ public class WarenkorbView extends JFrame
 			artikelLeiste.add(new JLabel(artikelanzahl+". Artikel"));
 			artikelLeiste.add(new JLabel(value.getName()));
 			artikelLeiste.add(new JLabel(value.getPreis() + "Euro"));
-			summe += value.getPreis();
+			setSumme(value.getPreis());
 	        JButton button = new JButton("Entfernen");
 	        button.setName(id_key);
 	        button.addActionListener(warenkorbController);
@@ -84,6 +85,13 @@ public class WarenkorbView extends JFrame
 	        System.out.println("Warenkorbsumme: "+summe);
 		}
 		System.out.println("Warenkorb Ende. \n");
+		updateSumme();
 		this.validate();
+	}
+
+	private void setSumme(double preis)
+	{
+		summe += preis;
+		summe = Math.round(100.0 *summe)/ 100.0;
 	}
 }
