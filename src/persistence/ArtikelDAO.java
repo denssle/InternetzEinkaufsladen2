@@ -102,13 +102,13 @@ public class ArtikelDAO
 	public ArtikelModel getArtikel(String artikelNr)
 	{
 		System.out.println(artikelNr);
-		int id = Integer.parseInt(artikelNr);
-		return alleArtikel.get(id);
+		UUID artikelNrUUID = UUID.fromString(artikelNr);
+		return alleArtikel.get(artikelNrUUID);
 		
 	}
 	public boolean artikelExists(String artikelNr)
 	{
-		int id = Integer.parseInt(artikelNr);
-		return alleArtikel.containsKey(id);
+		UUID artikelNrUUID = UUID.fromString(artikelNr);
+		return alleArtikel.containsKey(artikelNrUUID);
 	}
 }

@@ -17,13 +17,19 @@ import view.ShopView;
 public class ShopController implements ActionListener
 {
 	private ArtikelDAO dao = new ArtikelDAO();
-	private ShopView shopView = new ShopView(this, dao.getAlleArtikel());
-	private WarenkorbController warenkorbC = new WarenkorbController();
-	private ArtikelDetailView artikelView = new ArtikelDetailView(this);
-	private ArtikelModel aktuellerArtikel = null;
+	private ShopView shopView;
+	private WarenkorbController warenkorbController;
+	private ArtikelDetailView artikelView;
+	private ArtikelModel aktuellerArtikel;
 	
 	public ShopController()
 	{
+		
+		dao = new ArtikelDAO();
+		shopView = new ShopView(this, dao.getAlleArtikel());
+		warenkorbController = new WarenkorbController();
+		artikelView = new ArtikelDetailView(this);
+		
 		testartikelAnlegen();
 	}
 
@@ -49,7 +55,7 @@ public class ShopController implements ActionListener
 	
 	public void warenkorbAnzeigen()
 	{
-		warenkorbC.anzeigen();
+		warenkorbController.anzeigen();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e)
@@ -76,7 +82,7 @@ public class ShopController implements ActionListener
 		if(befehl.equals("Kaufen"))
 		{
 			System.out.println("Folgendes soll gekauft werden: "+ aktuellerArtikel.getName());
-			warenkorbC.addArtikel(aktuellerArtikel);
+			warenkorbController.addArtikel(aktuellerArtikel);
 			artikelView.verstecken();
 			aktuellerArtikel = null;
 		}

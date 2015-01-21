@@ -6,17 +6,21 @@ import view.RegistrationsView;
 
 public class RegistrationsController implements ActionListener
 {
-	private RegistrationsView regiV = new RegistrationsView(this);
+	private RegistrationsView registrationsView;
 	
+	public RegistrationsController()
+	{
+		registrationsView = new RegistrationsView(this);
+	}
 	public void regiAnzeigen()
 	{
-		regiV.anzeigen();
+		registrationsView.anzeigen();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		String Befehl = e.getActionCommand();
-		System.out.println(Befehl);
+		String befehl = e.getActionCommand();
+		System.out.println(befehl);
 	}
 }

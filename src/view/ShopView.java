@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,11 +17,11 @@ import statics.Statics;
 
 public class ShopView extends JFrame
 {	
-	private Map<Integer, ArtikelModel> artikelMap;
+	private Map<UUID, ArtikelModel> artikelMap;
 	private ActionListener shopController;
 	private JPanel artikel_liste_leiste = new JPanel();
 	
-	public ShopView(ActionListener shopController, Map<Integer, ArtikelModel> map)
+	public ShopView(ActionListener shopController, Map<UUID, ArtikelModel> map)
 	{
 		this.shopController = shopController;
 		artikelMap = map;
@@ -44,13 +45,15 @@ public class ShopView extends JFrame
 		artikel_liste_leiste.add(new JLabel("Artikel: "));
 		artikel_liste_leiste.add(new JLabel("Details: "));
 		
+		Integer i = 0;
 		Iterator iterator = artikelMap.entrySet().iterator();
 		while(iterator.hasNext())
 		{
+			i++;
 			Map.Entry pairs = (Map.Entry)iterator.next();
 	        String id_key = pairs.getKey().toString();
 	        ArtikelModel value = (ArtikelModel) pairs.getValue();
-	        artikel_liste_leiste.add(new JLabel(id_key));
+	        artikel_liste_leiste.add(new JLabel(i.toString()));
 	        artikel_liste_leiste.add(new JLabel(value.getName()));
 	        JButton details = new JButton("Details");
 	        details.setName(id_key);
@@ -60,7 +63,7 @@ public class ShopView extends JFrame
 		}
 		artikel_liste_leiste.validate();
 	}
-	public void setArtikelMap(Map<Integer, ArtikelModel> dieArtikel)
+	public void setArtikelMap(Map<UUID, ArtikelModel> dieArtikel)
 	{
 		artikelMap = dieArtikel;
 	}

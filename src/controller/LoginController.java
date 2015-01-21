@@ -6,8 +6,12 @@ import view.LoginView;
 
 public class LoginController implements ActionListener
 {
-	private LoginView loginV = new LoginView(this);
+	private LoginView loginV;
 	
+	public LoginController()
+	{
+		loginV = new LoginView(this);
+	}
 	public void loginAnzeigen()
 	{
 		loginV.anzeigen();
