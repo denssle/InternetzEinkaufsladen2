@@ -56,11 +56,12 @@ public class WarenkorbView extends JFrame implements Observer
 		int artikelanzahl = 0;
 		summe = 0;
 		artikelLeiste.removeAll();
-		artikelLeiste.setLayout(new GridLayout(warenkorbModel.getArtikelMap().size()+1,4));
+		artikelLeiste.setLayout(new GridLayout(warenkorbModel.getArtikelMap().size()+1,5));
 		
 		artikelLeiste.add(new JLabel("Artikel Nr.:"));
 		artikelLeiste.add(new JLabel("Artikel Name:"));
 		artikelLeiste.add(new JLabel("Preis:"));
+		artikelLeiste.add(new JLabel("Anzahl:"));
 		artikelLeiste.add(new JLabel("Entfernen?:"));
 		
 		System.out.println("Im Warenkorb befinden sich: ");
@@ -69,13 +70,14 @@ public class WarenkorbView extends JFrame implements Observer
 		{	
 			Map.Entry pairs = (Map.Entry)iterator.next();
 	        ArtikelModel artikelModel = (ArtikelModel) pairs.getKey();
-
+	        Integer anzahl = (Integer) pairs.getValue();
 			System.out.println(artikelModel.getName());
 			
 			artikelanzahl++;
 			artikelLeiste.add(new JLabel(artikelanzahl+". Artikel"));
 			artikelLeiste.add(new JLabel(artikelModel.getName()));
 			artikelLeiste.add(new JLabel(artikelModel.getPreis() + "Euro"));
+			artikelLeiste.add(new JLabel(" "+anzahl));
 			setSumme(artikelModel.getPreis());
 	        JButton button = new JButton("Entfernen");
 	        button.setName(artikelModel.getArtikelId().toString());

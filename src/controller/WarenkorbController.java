@@ -13,10 +13,10 @@ public class WarenkorbController implements ActionListener
 {
 	private WarenkorbView warenkorbV;
     private WarenkorbModel warenkorbModel;
-	private static int id = 0;
 
 
-    public WarenkorbController() {
+    public WarenkorbController()
+    {
         this.warenkorbV = new WarenkorbView(this);
         this.warenkorbModel =  new WarenkorbModel(warenkorbV);
     }
@@ -28,7 +28,14 @@ public class WarenkorbController implements ActionListener
 
 	public void addArtikel(ArtikelModel aktuellerArtikel)
 	{
-        warenkorbModel.addArtikel(aktuellerArtikel, 1);
+		if(warenkorbModel.existiertInWarenkorb(aktuellerArtikel))
+		{
+			warenkorbModel.erhoeheAnzahl(aktuellerArtikel);
+		}
+		else
+		{
+	        warenkorbModel.addArtikel(aktuellerArtikel, 1);	
+		}
 		System.out.println("Warenkorb hat folgenden Inhalt: " + warenkorbModel.getArtikelMap().keySet());
 	}
 
@@ -41,12 +48,12 @@ public class WarenkorbController implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		JButton pressedButton = (JButton) e.getSource();
-		String uuid = pressedButton.getName();
+		String pressedButtonString = pressedButton.getName();
 		String befehl = e.getActionCommand();
 		
-		System.out.println("Warenkorb; uuid:"+uuid+" befehl: "+befehl);
+		System.out.println("Warenkorb; uuid:"+pressedButtonString+" befehl: "+befehl);
 
-		removeArtikel(warenkorbModel.getArtikel(uuid));
+		removeArtikel(warenkorbModel.getArtikel(pressedButtonString));
 	}
 
 	
