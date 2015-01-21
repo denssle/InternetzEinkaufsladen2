@@ -1,0 +1,416 @@
+From 9a0702f46a0d66033d7f5328930928199cd68daf Mon Sep 17 00:00:00 2001
+From: Christian Oberschulte <co@innoq.com>
+Date: Fri, 16 Jan 2015 16:25:41 +0100
+Subject: [PATCH] observer introduced
+
+---
+ src/controller/NavigationsController.java | 34 ++++++++++++++----------
+ src/controller/ShopController.java        |  2 ++
+ src/controller/WarenkorbController.java   | 43 +++++++++++++++++-------------
+ src/model/ArtikelModel.java               | 10 ++++---
+ src/model/WarenkorbModel.java             | 36 ++++++++++++++++++++++++-
+ src/persistence/ArtikelDAO.java           |  9 ++++---
+ src/statics/Statics.java                  |  2 ++
+ src/view/NavigationsView.java             |  2 ++
+ src/view/WarenkorbView.java               | 44 +++++++++++++++----------------
+ 9 files changed, 118 insertions(+), 64 deletions(-)
+
+diff --git a/src/controller/NavigationsController.java b/src/controller/NavigationsController.java
+index 6ef5d10..77b8056 100644
+--- a/src/controller/NavigationsController.java
++++ b/src/controller/NavigationsController.java
+@@ -8,13 +8,19 @@ import view.NavigationsView;
+ 
+ public class NavigationsController implements ActionListener
+ {
+-	private NavigationsView navigationsV = new NavigationsView(this);
+-	
+-	private LoginController loginC = new LoginController();
+-	private ShopController shopC = new ShopController();
+-	private RegistrationsController regisC = new RegistrationsController();
+-	
+-	public void navigationAnzeigen()
++	private NavigationsView navigationsV;
++	private LoginController loginC;
++	private ShopController shopC;
++	private RegistrationsController regisC;
++
++    public NavigationsController() {
++        this.navigationsV = new NavigationsView(this);
++        loginC = new LoginController();
++        shopC = new ShopController();
++        regisC = new RegistrationsController();
++    }
++
++    public void navigationAnzeigen()
+ 	{
+ 		//System.out.println("Navigation wird angezeigt");
+ 		navigationsV.anzeigen();
+@@ -22,27 +28,27 @@ public class NavigationsController implements ActionListener
+ 	
+ 	public void actionPerformed(ActionEvent e)
+ 	{
+-		String Befehl = e.getActionCommand();
++		String actionCommand = e.getActionCommand();
+ 		for(int i = 0; i<Statics.buttonlabels_nav.length; i++)
+ 		{
+-			if (Befehl.equals(Statics.buttonlabels_nav[i]))
++			if (actionCommand.equals(Statics.buttonlabels_nav[i]))
+ 			{
+-				if(Befehl.equals(Statics.buttonlabels_nav[0]))
++				if(actionCommand.equals(Statics.ANMELDEN))
+ 				{
+ 					loginC.loginAnzeigen();
+ 				}
+-				if(Befehl.equals(Statics.buttonlabels_nav[1]))
++				if(actionCommand.equals(Statics.buttonlabels_nav[1]))
+ 				{
+ 					shopC.einkaufAnzeigen();
+ 				}
+-				if(Befehl.equals(Statics.buttonlabels_nav[2]))
++				if(actionCommand.equals(Statics.buttonlabels_nav[2]))
+ 				{
+ 					shopC.warenkorbAnzeigen();
+ 				}
+-				if(Befehl.equals(Statics.buttonlabels_nav[3]))
++				if(actionCommand.equals(Statics.buttonlabels_nav[3]))
+ 				{
+ 				}
+-				if(Befehl.equals(Statics.buttonlabels_nav[4]))
++				if(actionCommand.equals(Statics.buttonlabels_nav[4]))
+ 				{
+ 					regisC.regiAnzeigen();
+ 				}
+diff --git a/src/controller/ShopController.java b/src/controller/ShopController.java
+index ccbdfca..1b6f46b 100644
+--- a/src/controller/ShopController.java
++++ b/src/controller/ShopController.java
+@@ -26,6 +26,8 @@ public class ShopController implements ActionListener
+ 	{
+ 		testartikelAnlegen();
+ 	}
++
++
+ 	private void testartikelAnlegen()
+ 	{
+ 		Random diceRoller = new Random();
+diff --git a/src/controller/WarenkorbController.java b/src/controller/WarenkorbController.java
+index 19da952..1c0c464 100644
+--- a/src/controller/WarenkorbController.java
++++ b/src/controller/WarenkorbController.java
+@@ -2,46 +2,51 @@ package controller;
+ 
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+-import java.util.HashMap;
+-import java.util.Map;
+ 
+ import javax.swing.JButton;
+ 
+ import model.ArtikelModel;
++import model.WarenkorbModel;
+ import view.WarenkorbView;
+ 
+ public class WarenkorbController implements ActionListener
+ {
+-	private WarenkorbView warenkorbV = new WarenkorbView();
+-	private Map<Integer, ArtikelModel> aktuellerInhalt = new HashMap<Integer, ArtikelModel>();
++	private WarenkorbView warenkorbV;
++    private WarenkorbModel warenkorbModel;
+ 	private static int id = 0;
+-	
+-	public void anzeigen()
++
++
++    public WarenkorbController() {
++        this.warenkorbV = new WarenkorbView(this);
++        this.warenkorbModel =  new WarenkorbModel(warenkorbV);
++    }
++
++    public void anzeigen()
+ 	{
+ 		warenkorbV.anzeigen();
+-		warenkorbV.addArtikel(aktuellerInhalt, this);
+ 	}
+-	public void addArtikel(ArtikelModel aktuellerArtikel) 
++
++	public void addArtikel(ArtikelModel aktuellerArtikel)
+ 	{
+-		aktuellerInhalt.put(id++, aktuellerArtikel);
+-		System.out.println("Warenkorb hat folgenden Inhalt: "+aktuellerInhalt.keySet());
+-		warenkorbV.addArtikel(aktuellerInhalt, this);
++        warenkorbModel.addArtikel(aktuellerArtikel, 1);
++		System.out.println("Warenkorb hat folgenden Inhalt: " + warenkorbModel.getArtikelMap().keySet());
+ 	}
+-	public void entferneArtikel(String id)
++
++	public void removeArtikel(ArtikelModel artikel)
+ 	{
+-		int idToInt = Integer.parseInt(id);
+-		System.out.println("Zu entfernender Artikel: "+idToInt);
+-		aktuellerInhalt.remove(idToInt);
+-		warenkorbV.addArtikel(aktuellerInhalt, this);
++		System.out.println("Zu entfernender Artikel: " + artikel.getName());
++		warenkorbModel.removeArtikel(artikel);
+ 	}
++
+ 	public void actionPerformed(ActionEvent e)
+ 	{
+ 		JButton pressedButton = (JButton) e.getSource();
+-		String buttonName = pressedButton.getName();
++		String uuid = pressedButton.getName();
+ 		String befehl = e.getActionCommand();
+ 		
+-		System.out.println("Warenkorb; buttonName:"+buttonName+" befehl: "+befehl);
+-		entferneArtikel(buttonName);
++		System.out.println("Warenkorb; uuid:"+uuid+" befehl: "+befehl);
++
++		removeArtikel(warenkorbModel.getArtikel(uuid));
+ 	}
+ 
+ 	
+diff --git a/src/model/ArtikelModel.java b/src/model/ArtikelModel.java
+index 2281c61..7134a81 100644
+--- a/src/model/ArtikelModel.java
++++ b/src/model/ArtikelModel.java
+@@ -1,9 +1,11 @@
+ package model;
+ 
++import java.util.Random;
++import java.util.UUID;
++
+ public class ArtikelModel
+ {
+-	private static int artikelNr;
+-	private int artikelId;
++	private UUID artikelId;
+ 	private String name;
+ 	private double preis;
+ 	private String beschreibung;
+@@ -11,9 +13,9 @@ public class ArtikelModel
+ 	
+ 	public ArtikelModel()
+ 	{
+-		artikelId = artikelNr++;
++		artikelId = UUID.randomUUID();
+ 	}
+-	public int getArtikelId() {
++	public UUID getArtikelId() {
+ 		return artikelId;
+ 	}
+ 	public String getName() {
+diff --git a/src/model/WarenkorbModel.java b/src/model/WarenkorbModel.java
+index 9ba49d0..ce233b2 100644
+--- a/src/model/WarenkorbModel.java
++++ b/src/model/WarenkorbModel.java
+@@ -1,6 +1,40 @@
+ package model;
+ 
+-public class WarenkorbModel
++import view.WarenkorbView;
++
++import java.util.HashMap;
++import java.util.Map;
++import java.util.Observable;
++
++public class WarenkorbModel extends Observable
+ {
++    private Map<ArtikelModel, Integer> artikelMap = new HashMap<ArtikelModel, Integer>();
++
++    public WarenkorbModel(WarenkorbView view) {
++        this.addObserver(view);
++    }
++
++    public Map<ArtikelModel, Integer> getArtikelMap() {
++        return artikelMap;
++    }
++
++    public void addArtikel(ArtikelModel artikelModel, Integer number) {
++        this.artikelMap.put(artikelModel, number);
++        this.setChanged();
++        this.notifyObservers();
++    }
++
++    public void removeArtikel(ArtikelModel artikel) {
++        this.artikelMap.remove(artikel);
++        this.setChanged();
++        this.notifyObservers();
++    }
+ 
++    public ArtikelModel getArtikel(String uuid) {
++        for (Map.Entry<ArtikelModel, Integer> entry : this.artikelMap.entrySet()) {
++            if (entry.getKey().getArtikelId().equals(uuid))
++                return entry.getKey();
++        }
++        return null;
++    }
+ }
+diff --git a/src/persistence/ArtikelDAO.java b/src/persistence/ArtikelDAO.java
+index c17d220..c505dbb 100644
+--- a/src/persistence/ArtikelDAO.java
++++ b/src/persistence/ArtikelDAO.java
+@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
+ import java.io.ObjectOutputStream;
+ import java.util.HashMap;
+ import java.util.Map;
++import java.util.UUID;
+ 
+ import model.ArtikelModel;
+ 
+@@ -16,13 +17,13 @@ public class ArtikelDAO
+ {
+ 	//private String pfad = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
+ 	//private File artikelSpeicherOrt = new File(pfad);
+-	private Map<Integer, ArtikelModel> alleArtikel = alteArtikelAuslesen();
++	private Map<UUID, ArtikelModel> alleArtikel = alteArtikelAuslesen();
+ 	
+-	private Map<Integer, ArtikelModel> alteArtikelAuslesen()
++	private Map<UUID, ArtikelModel> alteArtikelAuslesen()
+ 	{
+ 		validiereSpeicher();
+ 		
+-		Map<Integer, ArtikelModel> ausgeleseneArtikel = new HashMap<Integer, ArtikelModel>();
++		Map<UUID, ArtikelModel> ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
+ 		/*
+ 		try
+ 		{
+@@ -88,7 +89,7 @@ public class ArtikelDAO
+ 		*/
+ 	}
+ 	
+-	public Map<Integer, ArtikelModel> getAlleArtikel()
++	public Map<UUID, ArtikelModel> getAlleArtikel()
+ 	{
+ 		return alleArtikel;
+ 	}
+diff --git a/src/statics/Statics.java b/src/statics/Statics.java
+index 6c73dac..53ce775 100644
+--- a/src/statics/Statics.java
++++ b/src/statics/Statics.java
+@@ -2,6 +2,8 @@ package statics;
+ 
+ public class Statics
+ {
++    public static final String ANMELDEN = "Anmelden";
++
+ 	public static final String[] buttonlabels_nav = 
+ 		{
+ 		"Anmelden", 
+diff --git a/src/view/NavigationsView.java b/src/view/NavigationsView.java
+index 7dd9ee9..bade54e 100644
+--- a/src/view/NavigationsView.java
++++ b/src/view/NavigationsView.java
+@@ -17,6 +17,7 @@ public class NavigationsView extends JFrame
+ 	{
+ 		this.setTitle("Internetzladen 2");
+ 		JPanel leiste = new JPanel();
++
+ 		for(int i = 0; i< Statics.buttonlabels_nav.length; i++)
+ 		{
+ 			JButton neuerButton = new JButton(Statics.buttonlabels_nav[i]);
+@@ -30,6 +31,7 @@ public class NavigationsView extends JFrame
+ 		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+ 		this.setAlwaysOnTop(true);
+ 	}
++
+ 	public void anzeigen()
+ 	{		
+ 		this.setVisible(true);
+diff --git a/src/view/WarenkorbView.java b/src/view/WarenkorbView.java
+index 5e0ebd0..1a95b3c 100644
+--- a/src/view/WarenkorbView.java
++++ b/src/view/WarenkorbView.java
+@@ -1,14 +1,8 @@
+ package view;
+ 
+ import java.awt.BorderLayout;
+-import java.awt.Component;
+-import java.awt.FlowLayout;
+-import java.awt.GridBagLayout;
+ import java.awt.GridLayout;
+-import java.awt.event.ActionListener;
+-import java.util.HashMap;
+-import java.util.Iterator;
+-import java.util.Map;
++import java.util.*;
+ import java.util.Map.Entry;
+ 
+ import javax.swing.JButton;
+@@ -18,16 +12,20 @@ import javax.swing.JPanel;
+ 
+ import controller.WarenkorbController;
+ import model.ArtikelModel;
++import model.WarenkorbModel;
+ import statics.Statics;
+ 
+-public class WarenkorbView extends JFrame
++public class WarenkorbView extends JFrame implements Observer
+ {	
+ 	private JPanel artikelLeiste = new JPanel();
+ 	private JPanel summenPanel = new JPanel();
+ 	private double summe = 0;
++
++    private WarenkorbController controller;
+ 	
+-	public WarenkorbView()
++	public WarenkorbView(WarenkorbController controller)
+ 	{
++        this.controller = controller;
+ 		this.setLayout(new BorderLayout());	
+ 		this.setTitle("Einkaufswagen");
+ 		this.setSize(700,700);
+@@ -50,12 +48,15 @@ public class WarenkorbView extends JFrame
+ 		this.validate();
+ 	}
+ 
+-	public void addArtikel(Map<Integer, ArtikelModel> aktuellerInhalt, ActionListener warenkorbController)
+-	{
++    @Override
++    public void update(Observable o, Object arg) {
++
++        WarenkorbModel warenkorbModel = (WarenkorbModel) o;
++
+ 		int artikelanzahl = 0;
+ 		summe = 0;
+ 		artikelLeiste.removeAll();
+-		artikelLeiste.setLayout(new GridLayout(aktuellerInhalt.size()+1,4));
++		artikelLeiste.setLayout(new GridLayout(warenkorbModel.getArtikelMap().size()+1,4));
+ 		
+ 		artikelLeiste.add(new JLabel("Artikel Nr.:"));
+ 		artikelLeiste.add(new JLabel("Artikel Name:"));
+@@ -63,23 +64,22 @@ public class WarenkorbView extends JFrame
+ 		artikelLeiste.add(new JLabel("Entfernen?:"));
+ 		
+ 		System.out.println("Im Warenkorb befinden sich: ");
+-		Iterator<Entry<Integer, ArtikelModel>> iterator = aktuellerInhalt.entrySet().iterator();
++		Iterator<Entry<ArtikelModel, Integer>> iterator = warenkorbModel.getArtikelMap().entrySet().iterator();
+ 		while(iterator.hasNext())
+ 		{	
+ 			Map.Entry pairs = (Map.Entry)iterator.next();
+-	        String id_key = pairs.getKey().toString();
+-	        ArtikelModel value = (ArtikelModel) pairs.getValue();
+-	        
+-			System.out.println(value.getName());
++	        ArtikelModel artikelModel = (ArtikelModel) pairs.getKey();
++
++			System.out.println(artikelModel.getName());
+ 			
+ 			artikelanzahl++;
+ 			artikelLeiste.add(new JLabel(artikelanzahl+". Artikel"));
+-			artikelLeiste.add(new JLabel(value.getName()));
+-			artikelLeiste.add(new JLabel(value.getPreis() + "Euro"));
+-			setSumme(value.getPreis());
++			artikelLeiste.add(new JLabel(artikelModel.getName()));
++			artikelLeiste.add(new JLabel(artikelModel.getPreis() + "Euro"));
++			setSumme(artikelModel.getPreis());
+ 	        JButton button = new JButton("Entfernen");
+-	        button.setName(id_key);
+-	        button.addActionListener(warenkorbController);
++	        button.setName(artikelModel.getArtikelId().toString());
++	        button.addActionListener(controller);
+ 	        
+ 	        artikelLeiste.add(button);
+ 	        System.out.println("Warenkorbsumme: "+summe);
+-- 
+1.8.5.2 (Apple Git-48)
+
