@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import statics.Statics;
 import model.ArtikelModel;
 
 
@@ -21,7 +22,7 @@ public class ArtikelDAO
 	
 	public ArtikelDAO()
 	{
-		pfad = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
+		pfad = Statics.path;
 		artikelSpeicherOrt = new File(pfad);
 		alleArtikel = alteArtikelAuslesen();
 	}
@@ -64,7 +65,6 @@ public class ArtikelDAO
 	{
 		validiereSpeicher();
 		
-		alleArtikel.put(zuSpeichernderArtikel.getArtikelId(), zuSpeichernderArtikel);
 		try
 		{
 			System.out.println("Beginne Speichervorgang. \nEverything not saved will be lost.");
@@ -79,8 +79,8 @@ public class ArtikelDAO
 		{
 			e.printStackTrace();
 		}
-		
-		System.out.println(zuSpeichernderArtikel.getName() + " wurde gespeichert.\n");
+		alleArtikel.put(zuSpeichernderArtikel.getArtikelId(), zuSpeichernderArtikel);
+		System.out.println(zuSpeichernderArtikel.getName() + " wurde gespeichert. \nAktuell befinden sich "+alleArtikel.size()+" Arikel im Speicher.");
 	}
 	
 	private void validiereSpeicher()

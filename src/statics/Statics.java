@@ -19,4 +19,5 @@ public class Statics
 	public static final int loc_left = 0;
 	public static final int loc_right = 710;
 	
+	public static final String path = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
 }
