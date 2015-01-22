@@ -15,10 +15,12 @@ import model.ArtikelModel;
 
 public class ArtikelDetailView extends JFrame
 {
-	JPanel struktur = new JPanel();
+	JPanel struktur;
 	
 	public ArtikelDetailView(ActionListener artikelDetailController)
 	{
+		struktur = new JPanel();
+		
 		this.setLayout(new FlowLayout());		
 		this.setSize(700,700);
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);

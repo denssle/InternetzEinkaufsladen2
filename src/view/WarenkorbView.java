@@ -17,14 +17,18 @@ import statics.Statics;
 
 public class WarenkorbView extends JFrame implements Observer
 {	
-	private JPanel artikelLeiste = new JPanel();
-	private JPanel summenPanel = new JPanel();
-	private double summe = 0;
+	private JPanel artikelLeiste;
+	private JPanel summenPanel;
+	private double summe;
 
     private WarenkorbController controller;
 	
 	public WarenkorbView(WarenkorbController controller)
 	{
+		artikelLeiste = new JPanel();
+		summenPanel = new JPanel();
+		summe = 0;
+		
         this.controller = controller;
 		this.setLayout(new BorderLayout());	
 		this.setTitle("Einkaufswagen");

@@ -1,16 +1,21 @@
 package model;
 
+import java.util.UUID;
+
 public class BenutzerModel
 {
-	private int id;
+	private UUID id;
 	private String name;
 	private String email;
 	private String strasse;
 	private String stadt;
 	private String passwort;
 	/* Getter */
-	
-	public int getId()
+	public BenutzerModel()
+	{
+		id = UUID.randomUUID();
+	}
+	public UUID getId()
 	{
 		return id;
 	}
@@ -34,11 +39,7 @@ public class BenutzerModel
 	{
 		return passwort;
 	}
-
-	public void setId(int id)
-	{
-		this.id = id;
-	}
+	/* Setter */
 	public void setName(String name)
 	{
 		this.name = name;
