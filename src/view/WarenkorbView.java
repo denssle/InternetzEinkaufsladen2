@@ -66,6 +66,7 @@ public class WarenkorbView extends JFrame implements Observer
 		
 		System.out.println("Im Warenkorb befinden sich: ");
 		Iterator<Entry<ArtikelModel, Integer>> iterator = warenkorbModel.getArtikelMap().entrySet().iterator();
+		
 		while(iterator.hasNext())
 		{	
 			Map.Entry pairs = (Map.Entry)iterator.next();
@@ -78,7 +79,7 @@ public class WarenkorbView extends JFrame implements Observer
 			artikelLeiste.add(new JLabel(artikelModel.getName()));
 			artikelLeiste.add(new JLabel(artikelModel.getPreis() + "Euro"));
 			artikelLeiste.add(new JLabel(" "+anzahl));
-			setSumme(artikelModel.getPreis());
+			setSumme(artikelModel.getPreis()*anzahl);
 	        JButton button = new JButton("Entfernen");
 	        button.setName(artikelModel.getArtikelId().toString());
 	        button.addActionListener(controller);
