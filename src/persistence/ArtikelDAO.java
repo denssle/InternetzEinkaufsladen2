@@ -15,9 +15,16 @@ import model.ArtikelModel;
 
 public class ArtikelDAO
 {
-	//private String pfad = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
-	//private File artikelSpeicherOrt = new File(pfad);
-	private Map<UUID, ArtikelModel> alleArtikel = alteArtikelAuslesen();
+	private String pfad;
+	private File artikelSpeicherOrt;
+	private Map<UUID, ArtikelModel> alleArtikel;
+	
+	public ArtikelDAO()
+	{
+		pfad = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
+		artikelSpeicherOrt = new File(pfad);
+		alleArtikel = alteArtikelAuslesen();
+	}
 	
 	private Map<UUID, ArtikelModel> alteArtikelAuslesen()
 	{
@@ -29,13 +36,13 @@ public class ArtikelDAO
 		{
 			FileInputStream fs = new FileInputStream(pfad);
 			ObjectInputStream is = new ObjectInputStream(fs);
-			ausgeleseneArtikel = (Map<Integer, ArtikelModel>) is.readObject();
+			ausgeleseneArtikel = (Map<UUID, ArtikelModel>) is.readObject();
 			is.close();
 		}
 		catch (IOException | ClassNotFoundException e)
 		{
 			System.out.println("Datei konnte nicht gelesen werden.");
-			ausgeleseneArtikel = new HashMap<Integer, ArtikelModel>();
+			ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
 		}
 		System.out.println(ausgeleseneArtikel.size());
 		*/
