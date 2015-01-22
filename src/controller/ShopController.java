@@ -1,6 +1,7 @@
 package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class ShopController implements ActionListener
 		warenkorbController = new WarenkorbController();
 		artikelView = new ArtikelDetailView(this);
 		
-		testartikelAnlegen();
+		//testartikelAnlegen();
 	}
 
 

@@ -26,26 +26,37 @@ public class ArtikelDAO
 		alleArtikel = alteArtikelAuslesen();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private Map<UUID, ArtikelModel> alteArtikelAuslesen()
 	{
 		validiereSpeicher();
 		
 		Map<UUID, ArtikelModel> ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
-		/*
+		
 		try
 		{
+			System.out.println("Beginne Lesevorgang. ");
 			FileInputStream fs = new FileInputStream(pfad);
 			ObjectInputStream is = new ObjectInputStream(fs);
+			System.out.println("FileInput und ObjectInput melden Bereitschaft. ");
 			ausgeleseneArtikel = (Map<UUID, ArtikelModel>) is.readObject();
+			System.out.println("Lesevorgang abgeschlossen. \nArtikeldaten wurden geladen. \nFileInput und ObjectInput werden geschlossen. \nLesevorgang beendet.\n");
 			is.close();
+			fs.close();
+		}
+		catch(java.io.EOFException e2)
+		{
+			//Diese Exception wird geworfen wenn die Speicherdatei leer ist. 
+			//Sie muss nicht weiter behandelt werden, da sie gefixt wird sobald ein Artikel gespeichert wird
+			System.out.println("EOFException");
 		}
 		catch (IOException | ClassNotFoundException e)
 		{
-			System.out.println("Datei konnte nicht gelesen werden.");
+			System.out.println("Fehler! \nDatei konnte nicht gelesen werden.");
+			e.printStackTrace();
 			ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
 		}
-		System.out.println(ausgeleseneArtikel.size());
-		*/
+		
 		return ausgeleseneArtikel; 
 	}
 
@@ -54,48 +65,90 @@ public class ArtikelDAO
 		validiereSpeicher();
 		
 		alleArtikel.put(zuSpeichernderArtikel.getArtikelId(), zuSpeichernderArtikel);
-		/*
-		FileOutputStream fs = new FileOutputStream(pfad);
-		ObjectOutputStream os = new ObjectOutputStream(fs);
-		System.out.println("Datei wird beschrieben.");
-		os.writeObject(alleArtikel);
-		System.out.println("os wird geschlossen!");
-		os.close();
-		*/
+		try
+		{
+			System.out.println("Beginne Speichervorgang. \nEverything not saved will be lost.");
+			FileOutputStream fs = new FileOutputStream(pfad);
+			ObjectOutputStream os = new ObjectOutputStream(fs);
+			System.out.println("Datei wird beschrieben.");
+			os.writeObject(alleArtikel);
+			System.out.println("os wird geschlossen!");
+			os.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		
 		System.out.println(zuSpeichernderArtikel.getName() + " wurde gespeichert.\n");
 	}
 	
 	private void validiereSpeicher()
 	{
-		System.out.println("Artikelspeichervalidierung gestartet!");
-		/*
+		System.out.println("\nArtikelspeichervalidierung gestartet!");
+		
 		if(!artikelSpeicherOrt.exists())
         {
 			System.out.println("Datei nicht vorhanden.");
-            try
-            {
-                boolean wurdeErstellt = artikelSpeicherOrt.createNewFile();
-                if(wurdeErstellt)
-                {
-                    System.out.println("Neue Datei erstellt.\nValidierung erfolgreich abgeschlossen!");
-                }
-                else
-                {
-                    System.out.println("Datei konnte nicht erstellt werden!");
-                }
-            }
-            catch (IOException ex)
-            {
-                ex.printStackTrace();
-            }
+			neueDateiAnlegen();
         }
 		else
 		{
-			System.out.println("Datei gefunden!\nValidierung erfolgreich abgeschlossen!");
+			System.out.println("Datei gefunden.");
 		}
-		*/
+		rechteTesten();
+		System.out.println("Artikelspeichervalidierung abgeschlossen!\n");
 	}
-	
+	private void rechteTesten()
+	{
+		if(artikelSpeicherOrt.canRead())
+		{
+			System.out.println("Leserechte vorhanden. ");
+		}
+		else
+		{
+			System.out.println("Leserechte nicht vorhanden. .");
+		}
+		
+		if(artikelSpeicherOrt.canWrite())
+		{
+			System.out.println("Schreibrechte gegeben. ");
+		}
+		else
+		{
+			System.out.println("Schreibrechte nicht gegeben. ");
+		}
+		
+		if(artikelSpeicherOrt.canExecute())
+		{
+			System.out.println("Datei exekutierbar.");
+		}
+		else
+		{
+			System.out.println("Datei nicht exekutierbar.");
+		}
+	}
+
+	private void neueDateiAnlegen()
+	{
+		try
+        {
+            boolean wurdeErstellt = artikelSpeicherOrt.createNewFile();
+            if(wurdeErstellt)
+            {
+                System.out.println("Neue Datei erstellt.");
+            }
+            else
+            {
+                System.out.println("Datei konnte nicht erstellt werden!");
+            }
+        }
+        catch (IOException ex)
+        {
+        	System.out.println("Fehler beim erstellen von neuer Datei. ");
+            ex.printStackTrace();
+        }
+	}
 	public Map<UUID, ArtikelModel> getAlleArtikel()
 	{
 		return alleArtikel;

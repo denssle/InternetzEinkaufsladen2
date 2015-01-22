@@ -1,9 +1,10 @@
 package model;
 
-import java.util.Random;
+import java.io.Serializable;
 import java.util.UUID;
 
-public class ArtikelModel
+@SuppressWarnings("serial")
+public class ArtikelModel implements Serializable
 {
 	private UUID artikelId;
 	private String name;
