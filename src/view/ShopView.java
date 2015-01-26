@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -26,12 +27,15 @@ public class ShopView extends JFrame
 	private Map<UUID, ArtikelModel> artikelMap;
 	private ArrayList<ArtikelModel[]> listeAllerSeiten;
 	private ArtikelModel[] aktuelleSeiteArray;
+	private Iterator<ArtikelModel[]> iterator;
+	private int aktuelleSeitenzahl;
 	
 	public ShopView(ActionListener shopController, Map<UUID, ArtikelModel> map)
 	{
 		this.shopController = shopController;
 		artikelMap = map;
 		listeAllerSeiten = new ArrayList<ArtikelModel[]>();
+		aktuelleSeitenzahl = 1;
 		
 		this.setTitle("Einkaufen");
 		this.setLayout(new BorderLayout());		
@@ -40,11 +44,11 @@ public class ShopView extends JFrame
 		this.setLocation(Statics.loc_left, Statics.loc_down);
 
 		this.add(artikel_liste_leiste, BorderLayout.NORTH);
+		artikelMapInSeitenMapUmwandeln();
 	}
 	
-	private void artikel_liste_update()
+	private void updateAngezeigteArikel()
 	{
-		artikelMapInSeitenMapUmwandeln();
 		artikel_liste_leiste.removeAll();
 		
 		artikel_liste_leiste.setLayout(new GridLayout(aktuelleSeiteArray.length+2, 3));
@@ -55,8 +59,9 @@ public class ShopView extends JFrame
 		
 		for(Integer i = 0; i < aktuelleSeiteArray.length; i++)
 		{	
-			System.out.println("Anzuzeigender Artikel Nr.: "+i+" von "+aktuelleSeiteArray.length+" ist "+aktuelleSeiteArray[i].getName());
-	        artikel_liste_leiste.add(new JLabel(i.toString()));
+			Integer z = i +1;
+			System.out.println("Anzuzeigender Artikel Nr.: "+z+" von "+aktuelleSeiteArray.length+" ist "+aktuelleSeiteArray[i].getName());
+	        artikel_liste_leiste.add(new JLabel(z.toString()));
 	        artikel_liste_leiste.add(new JLabel(aktuelleSeiteArray[i].getName()));
 	        
 	        JButton details = new JButton("Details");
@@ -71,10 +76,9 @@ public class ShopView extends JFrame
 		JButton nachsteSeiteButton = new JButton(">");
 		nachsteSeiteButton.addActionListener(shopController);
 		
-		int seitenzahlAnzeigbar = 1;
-		
 		artikel_liste_leiste.add(zurueckButton);
-		artikel_liste_leiste.add(new JLabel(seitenzahlAnzeigbar+" / "+listeAllerSeiten.size()));
+		int maxSeiten = listeAllerSeiten.size()+1;
+		artikel_liste_leiste.add(new JLabel(aktuelleSeitenzahl +" / "+maxSeiten));
 		artikel_liste_leiste.add(nachsteSeiteButton);
 		
 		artikel_liste_leiste.validate();
@@ -84,6 +88,7 @@ public class ShopView extends JFrame
 	public void setArtikelMap(Map<UUID, ArtikelModel> dieArtikel)
 	{
 		artikelMap = dieArtikel;
+		artikelMapInSeitenMapUmwandeln();
 	}
 	
 	//Ca. 20 Artikel pro Seite; dazu Reiter und Buttons für Seitenwechsel. 
@@ -94,13 +99,14 @@ public class ShopView extends JFrame
 		System.out.println("Nötige Seitenzahl: " + notwendigeSeitenzahl);
 		System.out.println("Größe Artikelmap: "+artikelMap.size());
 			
-		for(int i = 0; i < notwendigeSeitenzahl; i++)
+		for(int i = 0; i <= notwendigeSeitenzahl; i++)
 		{
 			//Für den Fall das weniger als 20 Artikel angezeigt werden sollen, müssen spezielle Vorkehrungen getroffen werden. 
 			//Um NullPointerExceptions zu vermeiden muss die Arraylänge angepasst werden sowie die Grenze für die forSchleife. 
-			ArtikelModel[] seitenInhalt = new ArtikelModel[Statics.anzahlArtikelProSeite];
 			int grenze = Statics.anzahlArtikelProSeite;
-			if(artikelMap.size()<grenze)
+			ArtikelModel[] seitenInhalt = new ArtikelModel[grenze];
+			//Sollten weniger Artikel da sein, als anzahlArtikelProSeite vorsieht, wird es hier korrigiert. 
+			if(artikelMap.size()< grenze)
 			{
 				grenze = artikelMap.size();
 				seitenInhalt = new ArtikelModel[grenze];
@@ -114,7 +120,8 @@ public class ShopView extends JFrame
 			listeAllerSeiten.add(seitenInhalt);
 		}
 		aktuelleSeiteArray = listeAllerSeiten.get(0);
-		for(int i = 0; i < notwendigeSeitenzahl; i++)
+		iterator = listeAllerSeiten.iterator();
+		for(int i = 0; i <= notwendigeSeitenzahl; i++)
 		{
 			System.out.println("Seite: "+i+" Länge: "+listeAllerSeiten.get(i).length+" Erster Artikel: "+listeAllerSeiten.get(i)[0]);
 		}
@@ -122,21 +129,23 @@ public class ShopView extends JFrame
 	public void anzeigen()
 	{
 		this.setVisible(true);
-		artikel_liste_update();
+		updateAngezeigteArikel();
 	}
+	
 	public void naechsteSeite()
 	{
-		if(listeAllerSeiten.listIterator().hasNext())
+		if(iterator.hasNext())
 		{
-			aktuelleSeiteArray = listeAllerSeiten.listIterator().next();
+			aktuelleSeitenzahl++;
+			aktuelleSeiteArray = (ArtikelModel[]) iterator.next();
+			System.out.println(aktuelleSeiteArray);
+			updateAngezeigteArikel();
 		}
 	}
+	
 	public void vorherigeSeite()
 	{
-		if(listeAllerSeiten.listIterator().hasPrevious())
-		{
-			aktuelleSeiteArray = listeAllerSeiten.listIterator().previous();
-		}
-		
+		aktuelleSeitenzahl--;
+		updateAngezeigteArikel();
 	}
 }

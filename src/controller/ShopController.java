@@ -90,13 +90,10 @@ public class ShopController implements ActionListener
 		if(befehl.equals("<"))
 		{
 			shopView.vorherigeSeite();
-			shopView.anzeigen();
 		}
 		if(befehl.equals(">"))
 		{
-			System.out.println("NEXT!");
 			shopView.naechsteSeite();
-			shopView.anzeigen();
 		}
 	}
 }
