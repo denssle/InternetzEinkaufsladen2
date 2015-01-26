@@ -64,7 +64,8 @@ public class ArtikelDAO
 	public void speichern(ArtikelModel zuSpeichernderArtikel)
 	{
 		validiereSpeicher();
-		
+		alleArtikel.put(zuSpeichernderArtikel.getArtikelId(), zuSpeichernderArtikel);
+
 		try
 		{
 			System.out.println("Beginne Speichervorgang. \nEverything not saved will be lost.");
@@ -79,7 +80,6 @@ public class ArtikelDAO
 		{
 			e.printStackTrace();
 		}
-		alleArtikel.put(zuSpeichernderArtikel.getArtikelId(), zuSpeichernderArtikel);
 		System.out.println(zuSpeichernderArtikel.getName() + " wurde gespeichert. \nAktuell befinden sich "+alleArtikel.size()+" Arikel im Speicher.");
 	}
 	
@@ -168,6 +168,7 @@ public class ArtikelDAO
 	}
 	public boolean artikelExists(String artikelNr)
 	{
+		System.out.println("Artikel mit der UUDI"+artikelNr+"wird gesucht...");
 		UUID artikelNrUUID = UUID.fromString(artikelNr);
 		return alleArtikel.containsKey(artikelNrUUID);
 	}

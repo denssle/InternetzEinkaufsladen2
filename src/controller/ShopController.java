@@ -87,5 +87,16 @@ public class ShopController implements ActionListener
 			artikelView.verstecken();
 			aktuellerArtikel = null;
 		}
+		if(befehl.equals("<"))
+		{
+			shopView.vorherigeSeite();
+			shopView.anzeigen();
+		}
+		if(befehl.equals(">"))
+		{
+			System.out.println("NEXT!");
+			shopView.naechsteSeite();
+			shopView.anzeigen();
+		}
 	}
 }

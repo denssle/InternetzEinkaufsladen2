@@ -1,10 +1,13 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.swing.JButton;
@@ -15,62 +18,125 @@ import javax.swing.JPanel;
 import model.ArtikelModel;
 import statics.Statics;
 
+@SuppressWarnings("serial")
 public class ShopView extends JFrame
 {	
-	private Map<UUID, ArtikelModel> artikelMap;
 	private ActionListener shopController;
 	private JPanel artikel_liste_leiste = new JPanel();
+	private Map<UUID, ArtikelModel> artikelMap;
+	private ArrayList<ArtikelModel[]> listeAllerSeiten;
+	private ArtikelModel[] aktuelleSeiteArray;
 	
 	public ShopView(ActionListener shopController, Map<UUID, ArtikelModel> map)
 	{
 		this.shopController = shopController;
 		artikelMap = map;
+		listeAllerSeiten = new ArrayList<ArtikelModel[]>();
 		
 		this.setTitle("Einkaufen");
-		this.setLayout(new FlowLayout());		
+		this.setLayout(new BorderLayout());		
 		this.setSize(700,700);
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_left, Statics.loc_down);
 
-		this.add(artikel_liste_leiste);
+		this.add(artikel_liste_leiste, BorderLayout.NORTH);
 	}
 	
 	private void artikel_liste_update()
 	{
+		artikelMapInSeitenMapUmwandeln();
 		artikel_liste_leiste.removeAll();
 		
-		artikel_liste_leiste.setLayout(new GridLayout(artikelMap.size()+1, 3));
-		
+		artikel_liste_leiste.setLayout(new GridLayout(aktuelleSeiteArray.length+2, 3));
 		artikel_liste_leiste.add(new JLabel("Artikelnummer: "));
 		artikel_liste_leiste.add(new JLabel("Artikel: "));
 		artikel_liste_leiste.add(new JLabel("Details: "));
 		
-		Integer i = 0;
-		Iterator iterator = artikelMap.entrySet().iterator();
-		while(iterator.hasNext())
-		{
-			i++;
-			Map.Entry pairs = (Map.Entry)iterator.next();
-	        String id_key = pairs.getKey().toString();
-	        ArtikelModel value = (ArtikelModel) pairs.getValue();
+		
+		for(Integer i = 0; i < aktuelleSeiteArray.length; i++)
+		{	
+			System.out.println("Anzuzeigender Artikel Nr.: "+i+" von "+aktuelleSeiteArray.length+" ist "+aktuelleSeiteArray[i].getName());
 	        artikel_liste_leiste.add(new JLabel(i.toString()));
-	        artikel_liste_leiste.add(new JLabel(value.getName()));
+	        artikel_liste_leiste.add(new JLabel(aktuelleSeiteArray[i].getName()));
+	        
 	        JButton details = new JButton("Details");
-	        details.setName(id_key);
+	        details.setName(aktuelleSeiteArray[i].getArtikelId().toString());
 	        details.addActionListener(shopController);
 	        
 	        artikel_liste_leiste.add(details);
 		}
+		JButton zurueckButton = new JButton("<");
+		zurueckButton.addActionListener(shopController);
+		
+		JButton nachsteSeiteButton = new JButton(">");
+		nachsteSeiteButton.addActionListener(shopController);
+		
+		int seitenzahlAnzeigbar = 1;
+		
+		artikel_liste_leiste.add(zurueckButton);
+		artikel_liste_leiste.add(new JLabel(seitenzahlAnzeigbar+" / "+listeAllerSeiten.size()));
+		artikel_liste_leiste.add(nachsteSeiteButton);
+		
 		artikel_liste_leiste.validate();
 	}
+
+
 	public void setArtikelMap(Map<UUID, ArtikelModel> dieArtikel)
 	{
 		artikelMap = dieArtikel;
 	}
 	
+	//Ca. 20 Artikel pro Seite; dazu Reiter und Buttons für Seitenwechsel. 
+	//Dazu soll die große Map mit x Artikeln in kleinere Maps mit je 20 Artikel umgewandelt werden.
+	private void artikelMapInSeitenMapUmwandeln()
+	{
+		int notwendigeSeitenzahl = (artikelMap.size() / Statics.anzahlArtikelProSeite);
+		System.out.println("Nötige Seitenzahl: " + notwendigeSeitenzahl);
+		System.out.println("Größe Artikelmap: "+artikelMap.size());
+			
+		for(int i = 0; i < notwendigeSeitenzahl; i++)
+		{
+			//Für den Fall das weniger als 20 Artikel angezeigt werden sollen, müssen spezielle Vorkehrungen getroffen werden. 
+			//Um NullPointerExceptions zu vermeiden muss die Arraylänge angepasst werden sowie die Grenze für die forSchleife. 
+			ArtikelModel[] seitenInhalt = new ArtikelModel[Statics.anzahlArtikelProSeite];
+			int grenze = Statics.anzahlArtikelProSeite;
+			if(artikelMap.size()<grenze)
+			{
+				grenze = artikelMap.size();
+				seitenInhalt = new ArtikelModel[grenze];
+			}
+			for(int j = 0; j < grenze; j++)
+			{
+				ArtikelModel artikelModel = artikelMap.remove(artikelMap.keySet().toArray()[0]);
+				seitenInhalt[j]= artikelModel;
+				System.out.println("I: "+i+" J: "+j+" Aktuell in Umwandlung"+artikelModel.getName());
+			}
+			listeAllerSeiten.add(seitenInhalt);
+		}
+		aktuelleSeiteArray = listeAllerSeiten.get(0);
+		for(int i = 0; i < notwendigeSeitenzahl; i++)
+		{
+			System.out.println("Seite: "+i+" Länge: "+listeAllerSeiten.get(i).length+" Erster Artikel: "+listeAllerSeiten.get(i)[0]);
+		}
+	}
 	public void anzeigen()
 	{
 		this.setVisible(true);
 		artikel_liste_update();
+	}
+	public void naechsteSeite()
+	{
+		if(listeAllerSeiten.listIterator().hasNext())
+		{
+			aktuelleSeiteArray = listeAllerSeiten.listIterator().next();
+		}
+	}
+	public void vorherigeSeite()
+	{
+		if(listeAllerSeiten.listIterator().hasPrevious())
+		{
+			aktuelleSeiteArray = listeAllerSeiten.listIterator().previous();
+		}
+		
 	}
 }
