@@ -44,6 +44,7 @@ public class ShopView extends JFrame
 		this.setLocation(Statics.loc_left, Statics.loc_down);
 
 		this.add(artikel_liste_leiste, BorderLayout.NORTH);
+		
 		artikelMapInSeitenMapUmwandeln();
 	}
 	
@@ -51,7 +52,7 @@ public class ShopView extends JFrame
 	{
 		artikel_liste_leiste.removeAll();
 		
-		artikel_liste_leiste.setLayout(new GridLayout(aktuelleSeiteArray.length+2, 3));
+		artikel_liste_leiste.setLayout(new GridLayout(aktuelleSeiteArray.length+1, 3));
 		artikel_liste_leiste.add(new JLabel("Artikelnummer: "));
 		artikel_liste_leiste.add(new JLabel("Artikel: "));
 		artikel_liste_leiste.add(new JLabel("Details: "));
@@ -70,21 +71,29 @@ public class ShopView extends JFrame
 	        
 	        artikel_liste_leiste.add(details);
 		}
+		
+		this.add(buttonLeiste(), BorderLayout.SOUTH);
+		this.validate();
+	}
+
+	private JPanel buttonLeiste()
+	{
+		JPanel buttonLeiste = new JPanel();
+		buttonLeiste.setLayout(new GridLayout(1,3));
+		
 		JButton zurueckButton = new JButton("<");
 		zurueckButton.addActionListener(shopController);
 		
 		JButton nachsteSeiteButton = new JButton(">");
 		nachsteSeiteButton.addActionListener(shopController);
 		
-		artikel_liste_leiste.add(zurueckButton);
+		buttonLeiste.add(zurueckButton);
 		int maxSeiten = listeAllerSeiten.size()+1;
-		artikel_liste_leiste.add(new JLabel(aktuelleSeitenzahl +" / "+maxSeiten));
-		artikel_liste_leiste.add(nachsteSeiteButton);
+		buttonLeiste.add(new JLabel(aktuelleSeitenzahl +" / "+maxSeiten));
+		buttonLeiste.add(nachsteSeiteButton);
 		
-		artikel_liste_leiste.validate();
+		return buttonLeiste;
 	}
-
-
 	public void setArtikelMap(Map<UUID, ArtikelModel> dieArtikel)
 	{
 		artikelMap = dieArtikel;
