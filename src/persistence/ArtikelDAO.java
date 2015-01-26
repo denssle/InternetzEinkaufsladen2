@@ -17,31 +17,31 @@ import statics.Statics;
 
 public class ArtikelDAO
 {
-	private String pfad;
+	private String zielpfad;
 	private File artikelSpeicherOrt;
 	private Map<UUID, ArtikelModel> alleArtikel;
 	
 	public ArtikelDAO()
 	{
-		pfad = Statics.path;
-		artikelSpeicherOrt = new File(pfad);
-		alleArtikel = alteArtikelAuslesen();
+		zielpfad = Statics.path;
+		artikelSpeicherOrt = new File(zielpfad);
+		alleArtikel = bestehendeArtikeldateiAuslesen();
 	}
 	
 	@SuppressWarnings("unchecked")
-	private Map<UUID, ArtikelModel> alteArtikelAuslesen()
+	private Map<UUID, ArtikelModel> bestehendeArtikeldateiAuslesen()
 	{
-		validiereSpeicher();
+		validiereSpeicherDatei();
 		
-		Map<UUID, ArtikelModel> ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
+		Map<UUID, ArtikelModel> ausgeleseneArtikelMap = new HashMap<UUID, ArtikelModel>();
 		
 		try
 		{
 			System.out.println("Beginne Lesevorgang. ");
-			FileInputStream fs = new FileInputStream(pfad);
+			FileInputStream fs = new FileInputStream(zielpfad);
 			ObjectInputStream is = new ObjectInputStream(fs);
 			System.out.println("FileInput und ObjectInput melden Bereitschaft. ");
-			ausgeleseneArtikel = (Map<UUID, ArtikelModel>) is.readObject();
+			ausgeleseneArtikelMap = (Map<UUID, ArtikelModel>) is.readObject();
 			System.out.println("Lesevorgang abgeschlossen. \nArtikeldaten wurden geladen. \nFileInput und ObjectInput werden geschlossen. \nLesevorgang beendet.\n");
 			is.close();
 			fs.close();
@@ -51,27 +51,27 @@ public class ArtikelDAO
 			//Diese Exception wird geworfen wenn die Speicherdatei leer ist. 
 			//Sie muss nicht weiter behandelt werden, da sie gefixt wird sobald ein Artikel gespeichert wird
 			e2.printStackTrace();
-			ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
+			ausgeleseneArtikelMap = new HashMap<UUID, ArtikelModel>();
 		}
 		catch (IOException | ClassNotFoundException e)
 		{
 			System.out.println("Fehler! \nDatei konnte nicht gelesen werden.");
 			e.printStackTrace();
-			ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
+			ausgeleseneArtikelMap = new HashMap<UUID, ArtikelModel>();
 		}
 		
-		return ausgeleseneArtikel; 
+		return ausgeleseneArtikelMap; 
 	}
 
 	public void speichern(ArtikelModel zuSpeichernderArtikel)
 	{
-		validiereSpeicher();
+		validiereSpeicherDatei();
 		alleArtikel.put(zuSpeichernderArtikel.getArtikelId(), zuSpeichernderArtikel);
 
 		try
 		{
 			System.out.println("Beginne Speichervorgang. \nEverything not saved will be lost.");
-			FileOutputStream fs = new FileOutputStream(pfad);
+			FileOutputStream fs = new FileOutputStream(zielpfad);
 			ObjectOutputStream os = new ObjectOutputStream(fs);
 			System.out.println("Datei wird beschrieben.");
 			os.writeObject(alleArtikel);
@@ -85,7 +85,7 @@ public class ArtikelDAO
 		System.out.println(zuSpeichernderArtikel.getName() + " wurde gespeichert. \nAktuell befinden sich "+alleArtikel.size()+" Arikel im Speicher.");
 	}
 	
-	private void validiereSpeicher()
+	private void validiereSpeicherDatei()
 	{
 		System.out.println("\nArtikelspeichervalidierung gestartet!");
 		
@@ -98,10 +98,10 @@ public class ArtikelDAO
 		{
 			System.out.println("Datei gefunden.");
 		}
-		rechteTesten();
+		statusDateirechte();
 		System.out.println("Artikelspeichervalidierung abgeschlossen!\n");
 	}
-	private void rechteTesten()
+	private void statusDateirechte()
 	{
 		if(artikelSpeicherOrt.canRead())
 		{
@@ -135,8 +135,7 @@ public class ArtikelDAO
 	{
 		try
         {
-            boolean wurdeErstellt = artikelSpeicherOrt.createNewFile();
-            if(wurdeErstellt)
+            if(artikelSpeicherOrt.createNewFile())
             {
                 System.out.println("Neue Datei erstellt.");
             }
