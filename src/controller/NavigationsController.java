@@ -8,22 +8,22 @@ import view.NavigationsView;
 
 public class NavigationsController implements ActionListener
 {
-	private NavigationsView navigationsV;
-	private LoginController loginC;
-	private ShopController shopC;
-	private RegistrationsController regisC;
+	private NavigationsView navigationsView;
+	private LoginController loginController;
+	private ShopController shopController;
+	private RegistrationsController registrationsControllerC;
 
     public NavigationsController() {
-        this.navigationsV = new NavigationsView(this);
-        loginC = new LoginController();
-        shopC = new ShopController();
-        regisC = new RegistrationsController();
+        this.navigationsView = new NavigationsView(this);
+        loginController = new LoginController();
+        shopController = new ShopController();
+        registrationsControllerC = new RegistrationsController();
     }
 
     public void navigationAnzeigen()
 	{
 		//System.out.println("Navigation wird angezeigt");
-		navigationsV.anzeigen();
+		navigationsView.anzeigen();
 	}
 	
 	public void actionPerformed(ActionEvent e)
@@ -35,22 +35,22 @@ public class NavigationsController implements ActionListener
 			{
 				if(actionCommand.equals(Statics.ANMELDEN))
 				{
-					loginC.loginAnzeigen();
+					loginController.loginAnzeigen();
 				}
 				if(actionCommand.equals(Statics.buttonlabels_nav[1]))
 				{
-					shopC.einkaufAnzeigen();
+					shopController.shopViewAnzeigen();
 				}
 				if(actionCommand.equals(Statics.buttonlabels_nav[2]))
 				{
-					shopC.warenkorbAnzeigen();
+					shopController.warenkorbAnzeigen();
 				}
 				if(actionCommand.equals(Statics.buttonlabels_nav[3]))
 				{
 				}
 				if(actionCommand.equals(Statics.buttonlabels_nav[4]))
 				{
-					regisC.regiAnzeigen();
+					registrationsControllerC.regiAnzeigen();
 				}
 			}	
 		}

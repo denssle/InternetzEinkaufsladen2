@@ -12,10 +12,10 @@ import view.ShopView;
 
 public class ShopController implements ActionListener
 {
-	private ArtikelDAO dao = new ArtikelDAO();
+	private ArtikelDAO dao;
 	private ShopView shopView;
 	private WarenkorbController warenkorbController;
-	private ArtikelDetailView artikelView;
+	private ArtikelDetailView artikelDetailView;
 	private ArtikelModel aktuellerArtikel;
 	
 	public ShopController()
@@ -24,27 +24,28 @@ public class ShopController implements ActionListener
 		dao = new ArtikelDAO();
 		shopView = new ShopView(this, dao.getAlleArtikel());
 		warenkorbController = new WarenkorbController();
-		artikelView = new ArtikelDetailView(this);
+		artikelDetailView = new ArtikelDetailView(this);
 		
-		//testartikelAnlegen();
+		//	testartikelAnlegen();
 	}
 
 
+	@SuppressWarnings("unused")
 	private void testartikelAnlegen()
 	{
-		Random diceRoller = new Random();
-		for(int i = 1; i < 22; i ++)
+		Random zufall = new Random();
+		for(int i = 1; i < 25; i ++)
 		{
 			ArtikelModel neuerArtikel = new ArtikelModel();
 			neuerArtikel.setName("Testartikel Nr.: "+(i-1));
-			neuerArtikel.setBeschreibung("Testbeschreibung: "+diceRoller.toString());
-			neuerArtikel.setKategorie("Testkategorie: " + diceRoller.nextBoolean());
-			double preis = Math.round(100.0 *diceRoller.nextDouble()+i)/ 100.0;
+			neuerArtikel.setBeschreibung("Testbeschreibung: "+zufall.toString());
+			neuerArtikel.setKategorie("Testkategorie: " + zufall.nextBoolean());
+			double preis = Math.round(100.0 *zufall.nextDouble()+i)/ 100.0;
 			neuerArtikel.setPreis(preis);
 			dao.speichern(neuerArtikel);
 		}
 	}
-	public void einkaufAnzeigen()
+	public void shopViewAnzeigen()
 	{
 		shopView.anzeigen();
 	}
@@ -57,29 +58,34 @@ public class ShopController implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		JButton pressedButton = (JButton) e.getSource();
-		String buttonName = pressedButton.getName();
+		String uuidString = pressedButton.getName();
 		String befehl = e.getActionCommand();
-		System.out.println("buttonName:"+buttonName+" befehl:"+ befehl);
-		if(buttonName != null)
+		System.out.println("uuidString:"+uuidString+" befehl:"+ befehl);
+		
+		if(uuidString != null)
 		{
-			if(dao.artikelExists(buttonName))
+			if(dao.artikelExists(uuidString))
 			{
-				aktuellerArtikel = dao.getArtikel(buttonName);
-				System.out.println("Detailierter Artikel: "+aktuellerArtikel.getName());
-				artikelView.anzeigen(aktuellerArtikel);
+				aktuellerArtikel = dao.getArtikel(uuidString);
+				System.out.println("Detailierter Artikel: "+aktuellerArtikel.getName() + " gefunden. ");
+				artikelDetailView.anzeigen(aktuellerArtikel);
+			}
+			else
+			{
+				System.out.println("Kein passender Artikel gefunden. ");
 			}
 		}
 		
 		if(befehl.equals("Schliessen"))
 		{
-			artikelView.verstecken();
+			artikelDetailView.verstecken();
 			aktuellerArtikel = null;
 		}
 		if(befehl.equals("Kaufen"))
 		{
 			System.out.println("Folgendes soll gekauft werden: "+ aktuellerArtikel.getName());
 			warenkorbController.addArtikel(aktuellerArtikel);
-			artikelView.verstecken();
+			artikelDetailView.verstecken();
 			aktuellerArtikel = null;
 		}
 		if(befehl.equals("<"))

@@ -1,5 +1,6 @@
 package persistence;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -45,11 +46,12 @@ public class ArtikelDAO
 			is.close();
 			fs.close();
 		}
-		catch(java.io.EOFException e2)
+		catch(EOFException e2)
 		{
 			//Diese Exception wird geworfen wenn die Speicherdatei leer ist. 
 			//Sie muss nicht weiter behandelt werden, da sie gefixt wird sobald ein Artikel gespeichert wird
-			System.out.println("EOFException");
+			e2.printStackTrace();
+			ausgeleseneArtikel = new HashMap<UUID, ArtikelModel>();
 		}
 		catch (IOException | ClassNotFoundException e)
 		{
@@ -161,15 +163,17 @@ public class ArtikelDAO
 	
 	public ArtikelModel getArtikel(String artikelNr)
 	{
-		System.out.println(artikelNr);
+		System.out.println("Suche nach Artikel Nr.: "+artikelNr);
 		UUID artikelNrUUID = UUID.fromString(artikelNr);
 		return alleArtikel.get(artikelNrUUID);
 		
 	}
+	
 	public boolean artikelExists(String artikelNr)
 	{
-		System.out.println("Artikel mit der UUDI"+artikelNr+"wird gesucht...");
+		System.out.println("Artikel mit der UUDI: "+artikelNr+" wird gesucht...");
 		UUID artikelNrUUID = UUID.fromString(artikelNr);
+		//System.out.println(alleArtikel.keySet().contains(artikelNrUUID));
 		return alleArtikel.containsKey(artikelNrUUID);
 	}
 }
