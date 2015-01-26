@@ -121,7 +121,7 @@ public class ShopView extends JFrame
 			}
 			for(int j = 0; j < grenze; j++)
 			{
-				ArtikelModel artikelModel = artikelMap.remove(artikelMap.keySet().toArray()[0]);
+				ArtikelModel artikelModel = artikelMap.remove(artikelMap.keySet().iterator().next());
 				seitenInhalt[j]= artikelModel;
 				System.out.println("I: "+i+" J: "+j+" Aktuell in Umwandlung"+artikelModel.getName());
 			}
