@@ -1,10 +1,10 @@
 package model;
 
-import view.WarenkorbView;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+
+import view.WarenkorbView;
 
 public class WarenkorbModel extends Observable
 {

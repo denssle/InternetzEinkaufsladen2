@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -10,8 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import statics.Statics;
 import model.ArtikelModel;
+import statics.Statics;
 
 public class ArtikelDetailView extends JFrame
 {

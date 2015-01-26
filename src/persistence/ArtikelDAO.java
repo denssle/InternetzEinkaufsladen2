@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import statics.Statics;
 import model.ArtikelModel;
+import statics.Statics;
 
 
 public class ArtikelDAO
