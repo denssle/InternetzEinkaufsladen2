@@ -9,13 +9,11 @@ import view.NavigationsView;
 public class NavigationsController implements ActionListener
 {
 	private NavigationsView navigationsView;
-	private LoginController loginController;
 	private ShopController shopController;
 	private RegistrationsController registrationsControllerC;
 
     public NavigationsController() {
         this.navigationsView = new NavigationsView(this);
-        loginController = new LoginController();
         shopController = new ShopController();
         registrationsControllerC = new RegistrationsController();
     }
@@ -35,7 +33,7 @@ public class NavigationsController implements ActionListener
 			{
 				if(actionCommand.equals(Statics.ANMELDEN))
 				{
-					loginController.loginAnzeigen();
+					registrationsControllerC.loginAnzeigen();
 				}
 				if(actionCommand.equals(Statics.buttonlabels_nav[1]))
 				{

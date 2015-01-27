@@ -12,15 +12,19 @@ import javax.swing.JTextField;
 
 import statics.Statics;
 
+@SuppressWarnings("serial")
 public class LoginView extends JFrame
 {
+	private JTextField email;
+	private JTextField passwort;
+	
 	public LoginView(ActionListener loginController)
 	{
 		JPanel loginleiste = new JPanel();
 		loginleiste.setLayout(new FlowLayout());
-		JTextField email = new JTextField("Email");
-		JTextField passwort = new JTextField("Passwort");
-		JButton ok = new JButton("Ok");
+		email = new JTextField("Email");
+		passwort = new JTextField("Passwort");
+		JButton ok = new JButton(Statics.ok);
 		ok.addActionListener(loginController);
 		
 		loginleiste.add(new JLabel("Anmeldung"));
@@ -38,7 +42,15 @@ public class LoginView extends JFrame
 	{
 		this.setVisible(true);
 	}
-
+	
+	public String getEmail()
+	{
+		return email.getText();
+	}
+	public String getPassword()
+	{
+		return passwort.getText();
+	}
 	public boolean isActiv()
 	{
 		return this.isDisplayable();
