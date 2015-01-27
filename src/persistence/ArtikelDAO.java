@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import model.ArtikelModel;
@@ -23,7 +24,7 @@ public class ArtikelDAO
 	
 	public ArtikelDAO()
 	{
-		zielpfad = Statics.path;
+		zielpfad = Statics.itemPath;
 		artikelSpeicherOrt = new File(zielpfad);
 		alleArtikel = bestehendeArtikeldateiAuslesen();
 	}
@@ -170,9 +171,8 @@ public class ArtikelDAO
 	
 	public boolean artikelExists(String artikelNr)
 	{
-		System.out.println("Artikel mit der UUDI: "+artikelNr+" wird gesucht...");
 		UUID artikelNrUUID = UUID.fromString(artikelNr);
-		//System.out.println(alleArtikel.keySet().contains(artikelNrUUID));
+		System.out.println("Artikel mit der UUDI: "+artikelNr+" wird gesucht.");
 		return alleArtikel.containsKey(artikelNrUUID);
 	}
 }

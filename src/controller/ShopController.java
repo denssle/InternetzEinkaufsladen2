@@ -29,7 +29,6 @@ public class ShopController implements ActionListener
 		//	testartikelAnlegen();
 	}
 
-
 	@SuppressWarnings("unused")
 	private void testartikelAnlegen()
 	{
@@ -45,6 +44,7 @@ public class ShopController implements ActionListener
 			dao.speichern(neuerArtikel);
 		}
 	}
+	
 	public void shopViewAnzeigen()
 	{
 		shopView.anzeigen();
@@ -81,6 +81,7 @@ public class ShopController implements ActionListener
 			artikelDetailView.verstecken();
 			aktuellerArtikel = null;
 		}
+		
 		if(befehl.equals("Kaufen"))
 		{
 			System.out.println("Folgendes soll gekauft werden: "+ aktuellerArtikel.getName());
@@ -88,10 +89,12 @@ public class ShopController implements ActionListener
 			artikelDetailView.verstecken();
 			aktuellerArtikel = null;
 		}
+		
 		if(befehl.equals("<"))
 		{
 			shopView.vorherigeSeite();
 		}
+		
 		if(befehl.equals(">"))
 		{
 			shopView.naechsteSeite();
