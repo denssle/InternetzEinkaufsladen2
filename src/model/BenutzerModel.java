@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class BenutzerModel
+@SuppressWarnings("serial")
+public class BenutzerModel implements Serializable
 {
 	private UUID id;
 	private String name;

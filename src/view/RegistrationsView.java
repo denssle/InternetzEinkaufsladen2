@@ -19,7 +19,7 @@ public class RegistrationsView extends JFrame
 {
 	private JTextField[] inhaltEingabefelder;
 	private JDialog fehlerDialog;
-	
+	private JButton ok;
 	public RegistrationsView(ActionListener registrationsController)
 	{
 		inhaltEingabefelder = new JTextField[Statics.benutzerlabels.length];
@@ -30,24 +30,8 @@ public class RegistrationsView extends JFrame
 		this.setSize(700,700);
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_right, Statics.loc_down);
-		
-		JPanel zeile = new JPanel();
-		zeile.setLayout(new FlowLayout());
-		
-		zeile.setLayout(new GridLayout(Statics.benutzerlabels.length+1,2));
-		for(int i = 0; i<Statics.benutzerlabels.length; i++)
-		{
-			zeile.add(new JLabel(Statics.benutzerlabels[i]));
-			JTextField input = new JTextField("Hier bitte "+Statics.benutzerlabels[i]+" eingeben.");
-			input.setName(Statics.benutzerlabels[i]);
-			inhaltEingabefelder[i]=input;
-			zeile.add(input);
-		}
-		
-		JButton ok = new JButton(Statics.ok);
+		ok = new JButton(Statics.ok);
 		ok.addActionListener(registrationsController);
-		zeile.add(ok);
-		this.add(zeile);
 	}
 	public void fehlerWerfen(ActionListener registrationsController, String fehlergrund)
 	{
@@ -73,12 +57,36 @@ public class RegistrationsView extends JFrame
 	{
 		return this.isDisplayable();
 	}
-	public void anzeigen()
+	public void registrationsSchabloneAnzeigen()
 	{
+		JPanel zeile = new JPanel();
+		zeile.setLayout(new FlowLayout());
+		
+		zeile.setLayout(new GridLayout(Statics.benutzerlabels.length+1,2));
+		for(int i = 0; i<Statics.benutzerlabels.length; i++)
+		{
+			zeile.add(new JLabel(Statics.benutzerlabels[i]));
+			JTextField input = new JTextField("Hier bitte "+Statics.benutzerlabels[i]+" eingeben.");
+			input.setName(Statics.benutzerlabels[i]);
+			inhaltEingabefelder[i]=input;
+			zeile.add(input);
+		}
+		
+		
+		zeile.add(ok);
+		this.add(zeile);
 		this.setVisible(true);
+	}
+	public void schlissen()
+	{
+		this.dispose();
 	}
 	public JTextField[] getEingaben()
 	{
 		return inhaltEingabefelder;
+	}
+	public void bereitsAngemeldet()
+	{
+		
 	}
 }

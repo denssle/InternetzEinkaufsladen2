@@ -153,7 +153,7 @@ public class BenutzerDAO
 	{
 		return alleBenutzerMap;
 	}
-	public boolean benutzerVorhanden(String email, String password)
+	public BenutzerModel benutzerVorhanden(String email, String password)
 	{
 		System.out.println("Beginne Suche nach Benutzer nach Email: "+email);
 		for(BenutzerModel benutzerModel : alleBenutzerMap.values())
@@ -161,10 +161,11 @@ public class BenutzerDAO
 			System.out.println("Momentan im Check: "+ benutzerModel.getEmail());
 			if(benutzerModel.getEmail().equals(email) && benutzerModel.getPasswort().equals(password))
 			{
-				return true;
+				System.out.println("Benutzer "+ benutzerModel.getName() + "passt zur Email.");
+				return benutzerModel;
 			}
 		}
 		
-		return false;
+		return null;
 	}
 }

@@ -23,7 +23,14 @@ public class RegistrationsController implements ActionListener
 	}
 	public void regiAnzeigen()
 	{
-		registrationsView.anzeigen();
+		if(loginController.getAktuellenBenutzer() == null)
+		{
+			registrationsView.registrationsSchabloneAnzeigen();
+		}
+		else
+		{
+			registrationsView.bereitsAngemeldet();
+		}
 	}
 
 	@Override
@@ -43,6 +50,7 @@ public class RegistrationsController implements ActionListener
 			if (eingabenValidierung(inhaltTextFields))
 			{
 				neuenBenutzerAnlegen(inhaltTextFields);
+				registrationsView.schlissen();
 			}
 			else
 			{
