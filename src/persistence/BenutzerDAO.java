@@ -27,6 +27,7 @@ public class BenutzerDAO
 		alleBenutzerMap = bestehendeBenutzerdateiAuslesen();
 	}
 
+	@SuppressWarnings("unchecked")
 	private Map<UUID, BenutzerModel> bestehendeBenutzerdateiAuslesen()
 	{
 		validiereSpeicherDatei();

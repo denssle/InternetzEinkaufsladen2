@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @SuppressWarnings("serial")
@@ -15,7 +17,7 @@ public class BenutzerModel implements Serializable
 	/* Getter */
 	public BenutzerModel()
 	{
-		id = UUID.randomUUID();
+		id = UUID.randomUUID();	
 	}
 	public UUID getId()
 	{
@@ -41,6 +43,7 @@ public class BenutzerModel implements Serializable
 	{
 		return passwort;
 	}
+
 	/* Setter */
 	public void setName(String name)
 	{
