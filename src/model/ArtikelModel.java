@@ -14,7 +14,7 @@ public class ArtikelModel implements Serializable
 	
 	public ArtikelModel()
 	{
-		artikelId = UUID.randomUUID();
+		this.artikelId = UUID.randomUUID();
 	}
 	public UUID getArtikelId() {
 		return artikelId;

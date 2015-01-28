@@ -17,9 +17,9 @@ public class RegistrationsController implements ActionListener
 	private LoginController loginController;
 	public RegistrationsController()
 	{
-		registrationsView = new RegistrationsView(this);
-		benutzerDAO = new BenutzerDAO();
-		loginController = new LoginController(benutzerDAO);
+		this.registrationsView = new RegistrationsView(this);
+		this.benutzerDAO = new BenutzerDAO();
+		this.loginController = new LoginController(benutzerDAO);
 	}
 	public void regiAnzeigen()
 	{

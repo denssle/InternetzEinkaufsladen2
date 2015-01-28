@@ -13,7 +13,7 @@ public class WarenkorbModel extends Observable
     public WarenkorbModel(WarenkorbView view)
     {
         this.addObserver(view);
-        artikelMap = new HashMap<ArtikelModel, Integer>();
+        this.artikelMap = new HashMap<ArtikelModel, Integer>();
     }
 
     public Map<ArtikelModel, Integer> getArtikelMap()

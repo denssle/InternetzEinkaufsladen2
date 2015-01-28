@@ -30,9 +30,9 @@ public class ShopView extends JFrame
 	public ShopView(ActionListener shopController, Map<UUID, ArtikelModel> map)
 	{
 		this.shopController = shopController;
-		artikelMap = map;
-		listeAllerSeiten = new ArrayList<ArtikelModel[]>();
-		aktuelleSeitenzahl = 1;
+		this.artikelMap = map;
+		this.listeAllerSeiten = new ArrayList<ArtikelModel[]>();
+		this.aktuelleSeitenzahl = 1;
 		
 		this.setTitle("Einkaufen");
 		this.setLayout(new BorderLayout());		

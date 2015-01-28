@@ -6,7 +6,7 @@ public class ControllerController
 	
 	public ControllerController()
 	{
-		navigationsC = new NavigationsController();
+		this.navigationsC = new NavigationsController();
 	}
 	
 	public void startShop()

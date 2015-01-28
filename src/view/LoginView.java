@@ -22,10 +22,10 @@ public class LoginView extends JFrame
 	
 	public LoginView(ActionListener loginController)
 	{
-		loginleiste = new JPanel();
-		loginleiste.setLayout(new FlowLayout());
+		this.loginleiste = new JPanel();
 		this.actionListener = loginController;
-		
+		loginleiste.setLayout(new FlowLayout());
+
 		this.setLayout(new GridLayout());		
 		this.setSize(700,150);
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);

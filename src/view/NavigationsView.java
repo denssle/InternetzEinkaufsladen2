@@ -9,12 +9,15 @@ import javax.swing.JPanel;
 
 import statics.Statics;
 
+@SuppressWarnings("serial")
 public class NavigationsView extends JFrame
 {	
+	private JPanel leiste;
+	
 	public NavigationsView(ActionListener navigationsController)
 	{
 		this.setTitle("Internetzladen 2");
-		JPanel leiste = new JPanel();
+		this.leiste = new JPanel();
 
 		for(int i = 0; i< Statics.buttonlabels_nav.length; i++)
 		{

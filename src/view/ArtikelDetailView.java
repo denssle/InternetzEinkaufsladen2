@@ -18,7 +18,7 @@ public class ArtikelDetailView extends JFrame
 	
 	public ArtikelDetailView(ActionListener artikelDetailController)
 	{
-		struktur = new JPanel();
+		this.struktur = new JPanel();
 		
 		this.setLayout(new FlowLayout());		
 		this.setSize(700,700);

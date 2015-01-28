@@ -25,8 +25,8 @@ public class WarenkorbView extends JFrame implements Observer
 	
 	public WarenkorbView(WarenkorbController controller)
 	{
-		artikelLeiste = new JPanel();
-		summenPanel = new JPanel();
+		this.artikelLeiste = new JPanel();
+		this.summenPanel = new JPanel();
 		summe = 0;
 		
         this.controller = controller;

@@ -22,9 +22,9 @@ public class BenutzerDAO
 	
 	public BenutzerDAO()
 	{
-		zielpfad = Statics.userPath;
-		benutzerSpeicherOrt = new File(zielpfad);
-		alleBenutzerMap = bestehendeBenutzerdateiAuslesen();
+		this.zielpfad = Statics.userPath;
+		this.benutzerSpeicherOrt = new File(zielpfad);
+		this.alleBenutzerMap = bestehendeBenutzerdateiAuslesen();
 	}
 
 	@SuppressWarnings("unchecked")

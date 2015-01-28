@@ -17,7 +17,7 @@ public class BenutzerModel implements Serializable
 	/* Getter */
 	public BenutzerModel()
 	{
-		id = UUID.randomUUID();	
+		this.id = UUID.randomUUID();	
 	}
 	public UUID getId()
 	{

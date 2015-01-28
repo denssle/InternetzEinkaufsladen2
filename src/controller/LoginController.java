@@ -15,9 +15,9 @@ public class LoginController implements ActionListener
 	
 	public LoginController(BenutzerDAO benutzerDAO)
 	{
-		loginView = new LoginView(this);
+		this.loginView = new LoginView(this);
 		this.benutzerDAO = benutzerDAO;
-		aktuellerBenutzer  = null;
+		this.aktuellerBenutzer  = null;
 	}
 	public void loginAnzeigen()
 	{

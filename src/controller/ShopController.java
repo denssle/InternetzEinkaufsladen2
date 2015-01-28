@@ -20,11 +20,10 @@ public class ShopController implements ActionListener
 	
 	public ShopController()
 	{
-		
-		dao = new ArtikelDAO();
-		shopView = new ShopView(this, dao.getAlleArtikel());
-		warenkorbController = new WarenkorbController();
-		artikelDetailView = new ArtikelDetailView(this);
+		this.dao = new ArtikelDAO();
+		this.shopView = new ShopView(this, dao.getAlleArtikel());
+		this.warenkorbController = new WarenkorbController();
+		this.artikelDetailView = new ArtikelDetailView(this);
 		
 		//	testartikelAnlegen();
 	}

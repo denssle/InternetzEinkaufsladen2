@@ -14,8 +14,8 @@ public class NavigationsController implements ActionListener
 
     public NavigationsController() {
         this.navigationsView = new NavigationsView(this);
-        shopController = new ShopController();
-        registrationsControllerC = new RegistrationsController();
+        this.shopController = new ShopController();
+        this.registrationsControllerC = new RegistrationsController();
     }
 
     public void navigationAnzeigen()

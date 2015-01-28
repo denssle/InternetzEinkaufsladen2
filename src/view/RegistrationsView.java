@@ -24,10 +24,10 @@ public class RegistrationsView extends JFrame
 	
 	public RegistrationsView(ActionListener registrationsController)
 	{
-		inhaltEingabefelder = new JTextField[Statics.benutzerlabels.length];
-		fehlerDialog = new JDialog();
+		this.inhaltEingabefelder = new JTextField[Statics.benutzerlabels.length];
+		this.fehlerDialog = new JDialog();
+		this.registrationsJPanel = new JPanel();
 		
-		registrationsJPanel = new JPanel();
 		this.setTitle("Registration");
 		this.setLayout(new FlowLayout());		
 		this.setSize(700,700);

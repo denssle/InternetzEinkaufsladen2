@@ -24,9 +24,9 @@ public class ArtikelDAO
 	
 	public ArtikelDAO()
 	{
-		zielpfad = Statics.itemPath;
-		artikelSpeicherOrt = new File(zielpfad);
-		alleArtikel = bestehendeArtikeldateiAuslesen();
+		this.zielpfad = Statics.itemPath;
+		this.artikelSpeicherOrt = new File(zielpfad);
+		this.alleArtikel = bestehendeArtikeldateiAuslesen();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -172,7 +172,16 @@ public class ArtikelDAO
 	public boolean artikelExists(String artikelNr)
 	{
 		UUID artikelNrUUID = UUID.fromString(artikelNr);
-		System.out.println("Artikel mit der UUDI: "+artikelNr+" wird gesucht.");
-		return alleArtikel.containsKey(artikelNrUUID);
+		System.out.println("Artikel mit der UUDI: "+artikelNr+" wird gesucht."+" length: "+alleArtikel.size());
+		
+		for(UUID uuid : alleArtikel.keySet())
+		{
+			System.out.println(uuid+" VS "+artikelNrUUID);
+			if(uuid.equals(artikelNrUUID))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
