@@ -21,7 +21,8 @@ import statics.Statics;
 public class ShopView extends JFrame
 {	
 	private ActionListener shopController;
-	private JPanel artikel_liste_leiste = new JPanel();
+	private JPanel artikelPanel;
+	private JPanel navigationsPanel;
 	private ArrayList<ArtikelModel[]> listeAllerSeiten;
 	private ArtikelModel[] aktuelleSeiteArray;
 	private ListIterator<ArtikelModel[]> listIterator;
@@ -29,6 +30,9 @@ public class ShopView extends JFrame
 	
 	public ShopView(ActionListener shopController, Map<UUID, ArtikelModel> map)
 	{
+		this.artikelPanel =  new JPanel();
+		this.navigationsPanel  = new JPanel();
+		
 		this.shopController = shopController;
 		this.listeAllerSeiten = new ArrayList<ArtikelModel[]>();
 		this.aktuelleSeitenzahl = 1;
@@ -39,44 +43,45 @@ public class ShopView extends JFrame
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_left, Statics.loc_down);
 
-		this.add(artikel_liste_leiste, BorderLayout.NORTH);
-		
+		this.add(artikelPanel, BorderLayout.NORTH);
+		this.add(navigationsPanel, BorderLayout.SOUTH);
 		artikelMapInSeitenMapUmwandeln(map);
 	}
 	
 	private void updateAngezeigteArikel()
 	{
-		artikel_liste_leiste.removeAll();
+		artikelPanel.removeAll();
 		
 		// length+1 ist die Zeilenanzahl plus die Reiterzeile, gewünscht sind drei Spalten. 
-		artikel_liste_leiste.setLayout(new GridLayout(aktuelleSeiteArray.length+1, 3));
-		artikel_liste_leiste.add(new JLabel("Artikelnummer: "));
-		artikel_liste_leiste.add(new JLabel("Artikel: "));
-		artikel_liste_leiste.add(new JLabel("Details: "));
+		artikelPanel.setLayout(new GridLayout(aktuelleSeiteArray.length+1, 3));
+		artikelPanel.add(new JLabel("Artikelnummer: "));
+		artikelPanel.add(new JLabel("Artikel: "));
+		artikelPanel.add(new JLabel("Details: "));
 		
 		
 		for(Integer i = 0; i < aktuelleSeiteArray.length; i++)
 		{	
 			Integer z = i +1;
 			//System.out.println("Anzuzeigender Artikel Nr.: "+z+" von "+aktuelleSeiteArray.length+" ist "+aktuelleSeiteArray[i].getName());
-	        artikel_liste_leiste.add(new JLabel(z.toString()));
-	        artikel_liste_leiste.add(new JLabel(aktuelleSeiteArray[i].getName()));
+	        artikelPanel.add(new JLabel(z.toString()));
+	        artikelPanel.add(new JLabel(aktuelleSeiteArray[i].getName()));
 	        
 	        JButton details = new JButton("Details");
 	        details.setName(aktuelleSeiteArray[i].getArtikelId().toString());
 	        details.addActionListener(shopController);
 	        
-	        artikel_liste_leiste.add(details);
+	        artikelPanel.add(details);
 		}
-		
-		this.add(buttonLeiste(), BorderLayout.SOUTH);
+		//Navigation hinzufügen und validieren.
+		navigationsPanelUpdate();
 		this.validate();
 	}
 
-	private JPanel buttonLeiste()
+	private JPanel navigationsPanelUpdate()
 	{
-		JPanel buttonLeiste = new JPanel();
-		buttonLeiste.setLayout(new GridLayout(1,3));
+		navigationsPanel.removeAll();
+		
+		navigationsPanel.setLayout(new GridLayout(1,3));
 		
 		JButton zurueckButton = new JButton("<");
 		zurueckButton.addActionListener(shopController);
@@ -84,13 +89,13 @@ public class ShopView extends JFrame
 		JButton nachsteSeiteButton = new JButton(">");
 		nachsteSeiteButton.addActionListener(shopController);
 		
-		buttonLeiste.add(zurueckButton);
-		buttonLeiste.add(new JLabel(aktuelleSeitenzahl +" / "+ listeAllerSeiten.size()));
-		buttonLeiste.add(nachsteSeiteButton);
+		navigationsPanel.add(zurueckButton);
+		navigationsPanel.add(new JLabel(aktuelleSeitenzahl +" / "+ listeAllerSeiten.size()));
+		navigationsPanel.add(nachsteSeiteButton);
 		
-		return buttonLeiste;
+		return navigationsPanel;
 	}
-
+	
 	public void setArtikelMap(Map<UUID, ArtikelModel> dieArtikel)
 	{
 		artikelMapInSeitenMapUmwandeln(dieArtikel);
@@ -100,6 +105,7 @@ public class ShopView extends JFrame
 	//Dazu soll die große Map mit x Artikeln in kleinere Maps mit je 20 Artikel umgewandelt werden.
 	private void artikelMapInSeitenMapUmwandeln(Map<UUID, ArtikelModel> map)
 	{
+		listeAllerSeiten.clear();
 		Map<UUID, ArtikelModel> artikelMap = new HashMap<UUID ,ArtikelModel>(map);
 		System.out.println(artikelMap.hashCode()+ " VS " +map.hashCode());
 		int notwendigeSeitenzahl = (artikelMap.size() / Statics.anzahlArtikelProSeite);
@@ -145,6 +151,7 @@ public class ShopView extends JFrame
 			aktuelleSeiteArray = (ArtikelModel[]) listIterator.next();
 			aktuelleSeitenzahl = listeAllerSeiten.indexOf(aktuelleSeiteArray)+1;
 			System.out.println("Wechsel zu: "+aktuelleSeiteArray.hashCode()+ " aktuelle Seitenzahl: "+aktuelleSeitenzahl);
+			
 			// Problem: Manchmal wird aus unbekanntem nicht iteriert, obwohl next() aufgerufen wird. 
 			// Um dafür zu sorgen das die Seite trotzdem gewechselt wird, werden die HashCodes der alten und der vermeindlich neuen Seite verglichen.
 			// Finden sich keine Unterschiede, muss gewechselt werden. 

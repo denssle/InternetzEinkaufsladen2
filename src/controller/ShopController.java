@@ -25,7 +25,7 @@ public class ShopController implements ActionListener
 		this.warenkorbController = new WarenkorbController();
 		this.artikelDetailView = new ArtikelDetailView(this);
 		
-		//	testartikelAnlegen();
+		//testartikelAnlegen();
 	}
 
 	@SuppressWarnings("unused")
@@ -46,6 +46,7 @@ public class ShopController implements ActionListener
 	
 	public void shopViewAnzeigen()
 	{
+		shopView.setArtikelMap(dao.getAlleArtikel());
 		shopView.anzeigen();
 	}
 	
