@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.UUID;
@@ -21,7 +22,6 @@ public class ShopView extends JFrame
 {	
 	private ActionListener shopController;
 	private JPanel artikel_liste_leiste = new JPanel();
-	private Map<UUID, ArtikelModel> artikelMap;
 	private ArrayList<ArtikelModel[]> listeAllerSeiten;
 	private ArtikelModel[] aktuelleSeiteArray;
 	private ListIterator<ArtikelModel[]> listIterator;
@@ -30,7 +30,6 @@ public class ShopView extends JFrame
 	public ShopView(ActionListener shopController, Map<UUID, ArtikelModel> map)
 	{
 		this.shopController = shopController;
-		this.artikelMap = map;
 		this.listeAllerSeiten = new ArrayList<ArtikelModel[]>();
 		this.aktuelleSeitenzahl = 1;
 		
@@ -42,7 +41,7 @@ public class ShopView extends JFrame
 
 		this.add(artikel_liste_leiste, BorderLayout.NORTH);
 		
-		artikelMapInSeitenMapUmwandeln();
+		artikelMapInSeitenMapUmwandeln(map);
 	}
 	
 	private void updateAngezeigteArikel()
@@ -95,14 +94,15 @@ public class ShopView extends JFrame
 
 	public void setArtikelMap(Map<UUID, ArtikelModel> dieArtikel)
 	{
-		artikelMap = dieArtikel;
-		artikelMapInSeitenMapUmwandeln();
+		artikelMapInSeitenMapUmwandeln(dieArtikel);
 	}
 	
 	//Ca. 20 Artikel pro Seite; dazu Reiter und Buttons für Seitenwechsel. 
 	//Dazu soll die große Map mit x Artikeln in kleinere Maps mit je 20 Artikel umgewandelt werden.
-	private void artikelMapInSeitenMapUmwandeln()
+	private void artikelMapInSeitenMapUmwandeln(Map<UUID, ArtikelModel> map)
 	{
+		Map<UUID, ArtikelModel> artikelMap = new HashMap<UUID ,ArtikelModel>(map);
+		System.out.println(artikelMap.hashCode()+ " VS " +map.hashCode());
 		int notwendigeSeitenzahl = (artikelMap.size() / Statics.anzahlArtikelProSeite);
 		System.out.println("Nötige Seitenzahl: " + notwendigeSeitenzahl);
 		System.out.println("Größe Artikelmap: "+artikelMap.size());

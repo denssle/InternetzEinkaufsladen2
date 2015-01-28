@@ -166,7 +166,6 @@ public class ArtikelDAO
 		System.out.println("Suche nach Artikel Nr.: "+artikelNr);
 		UUID artikelNrUUID = UUID.fromString(artikelNr);
 		return alleArtikel.get(artikelNrUUID);
-		
 	}
 	
 	public boolean artikelExists(String artikelNr)
