@@ -21,37 +21,32 @@ import statics.Statics;
 public class ShopView extends JFrame
 {	
 	private ActionListener shopController;
-	private JPanel artikelPanel;
-	private JPanel navigationsPanel;
 	private ArrayList<ArtikelModel[]> listeAllerSeiten;
 	private ArtikelModel[] aktuelleSeiteArray;
 	private ListIterator<ArtikelModel[]> listIterator;
 	private int aktuelleSeitenzahl;
+	private JPanel artikelPanel;
+	private JPanel navigationsPanel;
 	
 	public ShopView(ActionListener shopController, Map<UUID, ArtikelModel> map)
 	{
-		this.artikelPanel =  new JPanel();
-		this.navigationsPanel  = new JPanel();
-		
 		this.shopController = shopController;
 		this.listeAllerSeiten = new ArrayList<ArtikelModel[]>();
 		this.aktuelleSeitenzahl = 1;
-		
+		this.artikelPanel = new JPanel();
+		this.navigationsPanel  =  new JPanel();
 		this.setTitle("Einkaufen");
 		this.setLayout(new BorderLayout());		
 		this.setSize(700,700);
 		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
 		this.setLocation(Statics.loc_left, Statics.loc_down);
-
-		this.add(artikelPanel, BorderLayout.NORTH);
-		this.add(navigationsPanel, BorderLayout.SOUTH);
+		
 		artikelMapInSeitenMapUmwandeln(map);
 	}
 	
 	private void updateAngezeigteArikel()
-	{
+	{	
 		artikelPanel.removeAll();
-		
 		// length+1 ist die Zeilenanzahl plus die Reiterzeile, gewünscht sind drei Spalten. 
 		artikelPanel.setLayout(new GridLayout(aktuelleSeiteArray.length+1, 3));
 		artikelPanel.add(new JLabel("Artikelnummer: "));
@@ -73,30 +68,29 @@ public class ShopView extends JFrame
 	        artikelPanel.add(details);
 		}
 		//Navigation hinzufügen und validieren.
+		this.add(artikelPanel, BorderLayout.NORTH);
 		navigationsPanelUpdate();
 		this.validate();
 	}
 
-	private JPanel navigationsPanelUpdate()
+	private void navigationsPanelUpdate()
 	{
 		navigationsPanel.removeAll();
-		
 		navigationsPanel.setLayout(new GridLayout(1,3));
 		
 		JButton zurueckButton = new JButton("<");
 		zurueckButton.addActionListener(shopController);
-		
 		JButton nachsteSeiteButton = new JButton(">");
 		nachsteSeiteButton.addActionListener(shopController);
 		
 		navigationsPanel.add(zurueckButton);
 		navigationsPanel.add(new JLabel(aktuelleSeitenzahl +" / "+ listeAllerSeiten.size()));
 		navigationsPanel.add(nachsteSeiteButton);
-		
-		return navigationsPanel;
+
+		this.add(navigationsPanel, BorderLayout.SOUTH);
 	}
 	
-	public void setArtikelMap(Map<UUID, ArtikelModel> dieArtikel)
+	public void updateArtikelMap(Map<UUID, ArtikelModel> dieArtikel)
 	{
 		artikelMapInSeitenMapUmwandeln(dieArtikel);
 	}
@@ -107,7 +101,6 @@ public class ShopView extends JFrame
 	{
 		listeAllerSeiten.clear();
 		Map<UUID, ArtikelModel> artikelMap = new HashMap<UUID ,ArtikelModel>(map);
-		System.out.println(artikelMap.hashCode()+ " VS " +map.hashCode());
 		int notwendigeSeitenzahl = (artikelMap.size() / Statics.anzahlArtikelProSeite);
 		System.out.println("Nötige Seitenzahl: " + notwendigeSeitenzahl);
 		System.out.println("Größe Artikelmap: "+artikelMap.size());

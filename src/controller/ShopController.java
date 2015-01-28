@@ -46,7 +46,7 @@ public class ShopController implements ActionListener
 	
 	public void shopViewAnzeigen()
 	{
-		shopView.setArtikelMap(dao.getAlleArtikel());
+		shopView.updateArtikelMap(dao.getAlleArtikel());
 		shopView.anzeigen();
 	}
 	
