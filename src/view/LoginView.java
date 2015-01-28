@@ -17,15 +17,28 @@ public class LoginView extends JFrame
 {
 	private JTextField email;
 	private JTextField passwort;
+	private ActionListener actionListener;
+	private JPanel loginleiste;
 	
 	public LoginView(ActionListener loginController)
 	{
-		JPanel loginleiste = new JPanel();
+		loginleiste = new JPanel();
 		loginleiste.setLayout(new FlowLayout());
+		this.actionListener = loginController;
+		
+		this.setLayout(new GridLayout());		
+		this.setSize(700,150);
+		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
+		this.setLocation(Statics.loc_right, Statics.loc_up);
+	}
+	
+	public void anmeldeSchablone()
+	{
+		loginleiste.removeAll();
 		email = new JTextField("Email");
 		passwort = new JTextField("Passwort");
 		JButton ok = new JButton(Statics.ok);
-		ok.addActionListener(loginController);
+		ok.addActionListener(actionListener);
 		
 		loginleiste.add(new JLabel("Anmeldung"));
 		loginleiste.add(email);
@@ -33,10 +46,14 @@ public class LoginView extends JFrame
 		loginleiste.add(ok);
 		
 		this.add(loginleiste);
-		this.setLayout(new GridLayout());		
-		this.setSize(700,150);
-		this.setDefaultCloseOperation(javax.swing.JFrame.HIDE_ON_CLOSE);
-		this.setLocation(Statics.loc_right, Statics.loc_up);
+		this.setVisible(true);
+	}
+	
+	public void bereitsAngemeldetSchablone()
+	{
+		loginleiste.removeAll();
+		loginleiste.add(new JLabel("Sie sind bereits angemeldet. "));
+		this.setVisible(true);
 	}
 	public void anzeigen()
 	{
@@ -54,5 +71,9 @@ public class LoginView extends JFrame
 	public boolean isActiv()
 	{
 		return this.isDisplayable();
+	}
+	public void schliessen()
+	{
+		this.dispose();
 	}
 }

@@ -20,11 +20,14 @@ public class RegistrationsView extends JFrame
 	private JTextField[] inhaltEingabefelder;
 	private JDialog fehlerDialog;
 	private JButton ok;
+	private JPanel registrationsJPanel;
+	
 	public RegistrationsView(ActionListener registrationsController)
 	{
 		inhaltEingabefelder = new JTextField[Statics.benutzerlabels.length];
 		fehlerDialog = new JDialog();
 		
+		registrationsJPanel = new JPanel();
 		this.setTitle("Registration");
 		this.setLayout(new FlowLayout());		
 		this.setSize(700,700);
@@ -32,6 +35,8 @@ public class RegistrationsView extends JFrame
 		this.setLocation(Statics.loc_right, Statics.loc_down);
 		ok = new JButton(Statics.ok);
 		ok.addActionListener(registrationsController);
+		this.add(registrationsJPanel);
+		
 	}
 	public void fehlerWerfen(ActionListener registrationsController, String fehlergrund)
 	{
@@ -59,22 +64,20 @@ public class RegistrationsView extends JFrame
 	}
 	public void registrationsSchabloneAnzeigen()
 	{
-		JPanel zeile = new JPanel();
-		zeile.setLayout(new FlowLayout());
+		registrationsJPanel.removeAll();
+		registrationsJPanel.setLayout(new FlowLayout());
 		
-		zeile.setLayout(new GridLayout(Statics.benutzerlabels.length+1,2));
+		registrationsJPanel.setLayout(new GridLayout(Statics.benutzerlabels.length+1,2));
 		for(int i = 0; i<Statics.benutzerlabels.length; i++)
 		{
-			zeile.add(new JLabel(Statics.benutzerlabels[i]));
+			registrationsJPanel.add(new JLabel(Statics.benutzerlabels[i]));
 			JTextField input = new JTextField("Hier bitte "+Statics.benutzerlabels[i]+" eingeben.");
 			input.setName(Statics.benutzerlabels[i]);
 			inhaltEingabefelder[i]=input;
-			zeile.add(input);
+			registrationsJPanel.add(input);
 		}
 		
-		
-		zeile.add(ok);
-		this.add(zeile);
+		registrationsJPanel.add(ok);
 		this.setVisible(true);
 	}
 	public void schlissen()
@@ -87,6 +90,8 @@ public class RegistrationsView extends JFrame
 	}
 	public void bereitsAngemeldet()
 	{
-		
+		registrationsJPanel.removeAll();
+		registrationsJPanel.add(new JLabel("Sie sind bereits registriert und angemeldet"));
+		this.setVisible(true);
 	}
 }

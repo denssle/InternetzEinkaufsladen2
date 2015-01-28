@@ -153,6 +153,7 @@ public class BenutzerDAO
 	{
 		return alleBenutzerMap;
 	}
+	
 	public BenutzerModel benutzerVorhanden(String email, String password)
 	{
 		System.out.println("Beginne Suche nach Benutzer nach Email: "+email);
@@ -169,7 +170,6 @@ public class BenutzerDAO
 				}
 			}
 		}
-		
 		return null;
 	}
 }

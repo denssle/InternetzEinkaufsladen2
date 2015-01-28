@@ -23,13 +23,23 @@ public class LoginController implements ActionListener
 	{
 		if(aktuellerBenutzer == null)
 		{
-			loginView.anzeigen();
+			loginView.anmeldeSchablone();
+		}
+		else
+		{
+			loginView.bereitsAngemeldetSchablone();
 		}
 	}
 	
 	public BenutzerModel getAktuellenBenutzer()
 	{
 		return aktuellerBenutzer;
+	}
+	
+	@SuppressWarnings("static-access")
+	public void setAktuellenBenutzer(BenutzerModel benutzerModel)
+	{
+		this.aktuellerBenutzer = benutzerModel;
 	}
 	
 	public void actionPerformed(ActionEvent e)
@@ -39,6 +49,10 @@ public class LoginController implements ActionListener
 		if(Befehl.equals(Statics.ok))
 		{
 			aktuellerBenutzer = benutzerDAO.benutzerVorhanden(loginView.getEmail(), loginView.getEmail());
+			if(aktuellerBenutzer != null)
+			{
+				loginView.schliessen();
+			}
 		}
 	}
 }

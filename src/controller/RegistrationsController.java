@@ -79,6 +79,7 @@ public class RegistrationsController implements ActionListener
 		neuerBenutzer.setPasswort(inhaltTextFields[4]);
 		
 		benutzerDAO.benutzerSpeichern(neuerBenutzer);
+		loginController.setAktuellenBenutzer(neuerBenutzer);
 	}
 	public void loginAnzeigen()
 	{
