@@ -85,8 +85,7 @@ public class ShopView extends JFrame
 		nachsteSeiteButton.addActionListener(shopController);
 		
 		buttonLeiste.add(zurueckButton);
-		int maxSeiten = listeAllerSeiten.size();
-		buttonLeiste.add(new JLabel(aktuelleSeitenzahl +" / "+maxSeiten));
+		buttonLeiste.add(new JLabel(aktuelleSeitenzahl +" / "+ listeAllerSeiten.size()));
 		buttonLeiste.add(nachsteSeiteButton);
 		
 		return buttonLeiste;
@@ -139,23 +138,45 @@ public class ShopView extends JFrame
 	
 	public void naechsteSeite()
 	{
-		System.out.println("previousIndex: "+listIterator.previousIndex()+" nextIndex, aktuelle SZ: "+listIterator.nextIndex()+" Seitenwechsel: "+listIterator.hasNext());
+		int arrayHash = aktuelleSeiteArray.hashCode();
+		System.out.println("Aktuelles Array: "+arrayHash+ " aktuelle Seitenzahl: "+aktuelleSeitenzahl);
 		if(listIterator.hasNext())
 		{
-			aktuelleSeitenzahl = listIterator.nextIndex()+1;
 			aktuelleSeiteArray = (ArtikelModel[]) listIterator.next();
-			updateAngezeigteArikel();
+			aktuelleSeitenzahl = listeAllerSeiten.indexOf(aktuelleSeiteArray)+1;
+			System.out.println("Wechsel zu: "+aktuelleSeiteArray.hashCode()+ " aktuelle Seitenzahl: "+aktuelleSeitenzahl);
+			// Problem: Manchmal wird aus unbekanntem nicht iteriert, obwohl next() aufgerufen wird. 
+			// Um dafür zu sorgen das die Seite trotzdem gewechselt wird, werden die HashCodes der alten und der vermeindlich neuen Seite verglichen.
+			// Finden sich keine Unterschiede, muss gewechselt werden. 
+			if(arrayHash == aktuelleSeiteArray.hashCode())
+			{
+				System.out.println("Korrektur!");
+				aktuelleSeiteArray = (ArtikelModel[]) listIterator.next();
+				aktuelleSeitenzahl += 1;
+				System.out.println("Wechsel zu: "+aktuelleSeiteArray.hashCode()+ " aktuelle Seitenzahl: "+aktuelleSeitenzahl);
+			}
 		}
+		updateAngezeigteArikel();
 	}
 	
 	public void vorherigeSeite()
 	{
-		System.out.println("previousIndex, aktuelle SZ: "+listIterator.previousIndex()+" nextIndex: "+listIterator.nextIndex()+" Seitenwechsel: "+listIterator.hasNext());
+		int arrayHash = aktuelleSeiteArray.hashCode();
+		System.out.println("Aktuelles Array: "+arrayHash+ " aktuelle Seitenzahl: "+aktuelleSeitenzahl);
 		if(listIterator.hasPrevious())
 		{
-			aktuelleSeitenzahl = listIterator.previousIndex();
 			aktuelleSeiteArray = listIterator.previous();
-			updateAngezeigteArikel();
+			aktuelleSeitenzahl = listeAllerSeiten.indexOf(aktuelleSeiteArray)+1;
+			System.out.println("Wechsel zu: : "+aktuelleSeiteArray.hashCode()+ " aktuelle Seitenzahl: "+aktuelleSeitenzahl);
+			
+			if(arrayHash == aktuelleSeiteArray.hashCode())
+			{
+				System.out.println("Korrektur!");
+				aktuelleSeiteArray = listIterator.previous();
+				aktuelleSeitenzahl -= 1;
+				System.out.println("Wechsel zu: "+aktuelleSeiteArray.hashCode()+ " aktuelle Seitenzahl: "+aktuelleSeitenzahl);
+			}
 		}
+		updateAngezeigteArikel();
 	}
 }
