@@ -45,6 +45,7 @@ public class NavigationsController implements ActionListener
 				}
 				if(actionCommand.equals(Statics.buttonlabels_nav[3]))
 				{
+					registrationsControllerC.profilAnzeigen();
 				}
 				if(actionCommand.equals(Statics.buttonlabels_nav[4]))
 				{

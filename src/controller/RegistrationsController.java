@@ -89,4 +89,8 @@ public class RegistrationsController implements ActionListener
 	{
 		loginController.loginAnzeigen();
 	}
+	public void profilAnzeigen()
+	{
+		profilController.anzeigen(loginController.getAktuellenBenutzer());
+	}
 }
