@@ -80,8 +80,10 @@ public class ShopView extends JFrame
 		
 		JButton zurueckButton = new JButton("<");
 		zurueckButton.addActionListener(shopController);
+		zurueckButton.setToolTipText("Zurück");
 		JButton nachsteSeiteButton = new JButton(">");
 		nachsteSeiteButton.addActionListener(shopController);
+		nachsteSeiteButton.setToolTipText("Vorwärts");
 		
 		navigationsPanel.add(zurueckButton);
 		navigationsPanel.add(new JLabel(aktuelleSeitenzahl +" / "+ listeAllerSeiten.size()));
