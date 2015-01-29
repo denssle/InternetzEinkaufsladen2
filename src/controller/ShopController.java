@@ -16,6 +16,7 @@ public class ShopController implements ActionListener
 	private ShopView shopView;
 	private WarenkorbController warenkorbController;
 	private ArtikelDetailView artikelDetailView;
+	private ArtikelModel aktuellerArtikel;
 	
 	public ShopController()
 	{
@@ -60,7 +61,6 @@ public class ShopController implements ActionListener
 		String uuidString = pressedButton.getName();
 		String befehl = e.getActionCommand();
 		System.out.println("uuidString:"+uuidString+" befehl:"+ befehl);
-		ArtikelModel aktuellerArtikel = null;
 		
 		if(uuidString != null)
 		{
