@@ -15,11 +15,14 @@ public class RegistrationsController implements ActionListener
 	private RegistrationsView registrationsView;
 	private BenutzerDAO benutzerDAO;
 	private LoginController loginController;
+	private ProfilController profilController;
+	
 	public RegistrationsController()
 	{
 		this.registrationsView = new RegistrationsView(this);
 		this.benutzerDAO = new BenutzerDAO();
 		this.loginController = new LoginController(benutzerDAO);
+		this.profilController = new ProfilController();
 	}
 	public void regiAnzeigen()
 	{
@@ -37,8 +40,9 @@ public class RegistrationsController implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{	
 		String befehl = e.getActionCommand();
-		if(befehl.equals(Statics.ok))
+		if(befehl.equals(Statics.ok) && loginController.getAktuellenBenutzer() != null)
 		{
+			System.out.println(loginController.getAktuellenBenutzer());
 			JTextField[] jTextFields = registrationsView.getEingaben();
 			String[] inhaltTextFields = new String[jTextFields.length];
 			for(int i = 0; i < jTextFields.length; i++)
