@@ -48,10 +48,19 @@ public class ProfilView extends JFrame
 	public void zeigeBenutzer(BenutzerModel aktuellerBenutzer) 
 	{
 		profilJPanel.removeAll();
-		profilJPanel.setLayout(new GridLayout());
+		profilJPanel.setLayout(new GridLayout(5,2));
 		
-		
+		profilJPanel.add(new JLabel("Name: "));
 		profilJPanel.add(new JLabel(aktuellerBenutzer.getName()));
+		
+		profilJPanel.add(new JLabel("Strasse: "));
+		profilJPanel.add(new JLabel(aktuellerBenutzer.getStrasse()));
+		
+		profilJPanel.add(new JLabel("Stadt: "));
+		profilJPanel.add(new JLabel(aktuellerBenutzer.getStadt()));
+		
+		profilJPanel.add(new JLabel("Email: "));
+		profilJPanel.add(new JLabel(aktuellerBenutzer.getEmail()));
 		profilJPanel.add(ok);
 		this.setVisible(true);
 	}
