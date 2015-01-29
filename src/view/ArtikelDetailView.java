@@ -12,9 +12,10 @@ import javax.swing.JPanel;
 import model.ArtikelModel;
 import statics.Statics;
 
+@SuppressWarnings("serial")
 public class ArtikelDetailView extends JFrame
 {
-	JPanel struktur;
+	private JPanel struktur;
 	
 	public ArtikelDetailView(ActionListener artikelDetailController)
 	{

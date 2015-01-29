@@ -11,7 +11,7 @@ public class LoginController implements ActionListener
 {
 	private LoginView loginView;
 	private BenutzerDAO benutzerDAO;
-	private static BenutzerModel aktuellerBenutzer;
+	private BenutzerModel aktuellerBenutzer;
 	
 	public LoginController(BenutzerDAO benutzerDAO)
 	{

@@ -2,7 +2,6 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import persistence.BenutzerDAO;
@@ -12,8 +11,8 @@ import view.RegistrationsView;
 
 public class RegistrationsController implements ActionListener
 {
-	private RegistrationsView registrationsView;
 	private BenutzerDAO benutzerDAO;
+	private RegistrationsView registrationsView;
 	private LoginController loginController;
 	private ProfilController profilController;
 	
@@ -53,6 +52,7 @@ public class RegistrationsController implements ActionListener
 			
 			if (eingabenValidierung(inhaltTextFields))
 			{
+				//Nach erfolgreicher Validierung wird ein neuer Benutzer angelegt. 
 				neuenBenutzerAnlegen(inhaltTextFields);
 				registrationsView.schlissen();
 			}

@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 import statics.Statics;
 import model.BenutzerModel;
@@ -61,7 +60,10 @@ public class ProfilView extends JFrame
 		
 		profilJPanel.add(new JLabel("Email: "));
 		profilJPanel.add(new JLabel(aktuellerBenutzer.getEmail()));
+		
+		profilJPanel.add(new JLabel("Fenster schliessen: "));
 		profilJPanel.add(ok);
+		
 		this.setVisible(true);
 	}
 

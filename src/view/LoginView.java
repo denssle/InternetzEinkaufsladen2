@@ -17,13 +17,14 @@ public class LoginView extends JFrame
 {
 	private JTextField email;
 	private JTextField passwort;
-	private ActionListener actionListener;
+	private JButton ok;
 	private JPanel loginleiste;
 	
 	public LoginView(ActionListener loginController)
 	{
 		this.loginleiste = new JPanel();
-		this.actionListener = loginController;
+		ok = new JButton(Statics.ok);
+		ok.addActionListener(loginController);
 		loginleiste.setLayout(new FlowLayout());
 
 		this.setLayout(new GridLayout());		
@@ -37,8 +38,6 @@ public class LoginView extends JFrame
 		loginleiste.removeAll();
 		email = new JTextField("Email");
 		passwort = new JTextField("Passwort");
-		JButton ok = new JButton(Statics.ok);
-		ok.addActionListener(actionListener);
 		
 		loginleiste.add(new JLabel("Anmeldung"));
 		loginleiste.add(email);

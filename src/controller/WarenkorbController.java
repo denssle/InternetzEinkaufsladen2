@@ -14,7 +14,6 @@ public class WarenkorbController implements ActionListener
 	private WarenkorbView warenkorbV;
     private WarenkorbModel warenkorbModel;
 
-
     public WarenkorbController()
     {
         this.warenkorbV = new WarenkorbView(this);

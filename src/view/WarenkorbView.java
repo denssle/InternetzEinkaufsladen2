@@ -18,7 +18,7 @@ import statics.Statics;
 @SuppressWarnings("serial")
 public class WarenkorbView extends JFrame implements Observer
 {	
-	private JPanel artikelLeiste;
+	private JPanel artikelPanel;
 	private JPanel summenPanel;
 	private JPanel reiterPanel;
 
@@ -26,7 +26,7 @@ public class WarenkorbView extends JFrame implements Observer
 	
 	public WarenkorbView(WarenkorbController controller)
 	{
-		this.artikelLeiste = new JPanel();
+		this.artikelPanel = new JPanel();
 		this.summenPanel = new JPanel();
 		this.reiterPanel = new JPanel();
 				
@@ -38,7 +38,7 @@ public class WarenkorbView extends JFrame implements Observer
 		this.setLocation(Statics.loc_right, Statics.loc_down);
 		
 		this.add(reiterPanel, BorderLayout.PAGE_START);
-		this.add(artikelLeiste, BorderLayout.CENTER);//bei SOUTH kommnen die Artikel von unten :)
+		this.add(artikelPanel, BorderLayout.CENTER);//bei SOUTH kommnen die Artikel von unten :)
 		this.add(summenPanel, BorderLayout.PAGE_END);
 	}
 
@@ -74,8 +74,8 @@ public class WarenkorbView extends JFrame implements Observer
 
 		int artikelanzahl = 0;
 		double summe = 0;
-		artikelLeiste.removeAll();
-		artikelLeiste.setLayout(new GridLayout(warenkorbModel.getArtikelMap().size(),5));
+		artikelPanel.removeAll();
+		artikelPanel.setLayout(new GridLayout(warenkorbModel.getArtikelMap().size(),5));
 
 		System.out.println("Im Warenkorb befinden sich: ");
 		Iterator<Entry<ArtikelModel, Integer>> iterator = warenkorbModel.getArtikelMap().entrySet().iterator();
@@ -88,16 +88,16 @@ public class WarenkorbView extends JFrame implements Observer
 			System.out.println(artikelModel.getName());
 			
 			artikelanzahl++;
-			artikelLeiste.add(new JLabel(artikelanzahl+". Artikel"));
-			artikelLeiste.add(new JLabel(artikelModel.getName()));
-			artikelLeiste.add(new JLabel(artikelModel.getPreis() + "Euro"));
-			artikelLeiste.add(new JLabel(" "+anzahl));
+			artikelPanel.add(new JLabel(artikelanzahl+". Artikel"));
+			artikelPanel.add(new JLabel(artikelModel.getName()));
+			artikelPanel.add(new JLabel(artikelModel.getPreis() + "Euro"));
+			artikelPanel.add(new JLabel(" "+anzahl));
 			summe = berechneSumme(summe, artikelModel.getPreis()*anzahl);
 	        JButton button = new JButton("Entfernen");
 	        button.setName(artikelModel.getArtikelId().toString());
 	        button.addActionListener(controller);
 	        
-	        artikelLeiste.add(button);
+	        artikelPanel.add(button);
 	        System.out.println("Warenkorbsumme: "+summe);
 		}
 		System.out.println("Warenkorb Ende. \n");
