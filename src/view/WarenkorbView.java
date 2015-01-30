@@ -21,7 +21,7 @@ public class WarenkorbView extends JFrame implements Observer
 	private JPanel artikelPanel;
 	private JPanel summenPanel;
 	private JPanel reiterPanel;
-
+	private JPanel subArtikelPanel;
     private WarenkorbController controller;
 	
 	public WarenkorbView(WarenkorbController controller)
@@ -29,7 +29,8 @@ public class WarenkorbView extends JFrame implements Observer
 		this.artikelPanel = new JPanel();
 		this.summenPanel = new JPanel();
 		this.reiterPanel = new JPanel();
-				
+		this.subArtikelPanel = new JPanel();
+		
         this.controller = controller;
 		this.setLayout(new BorderLayout());	
 		this.setTitle("Einkaufswagen");
@@ -75,7 +76,10 @@ public class WarenkorbView extends JFrame implements Observer
 		int artikelanzahl = 0;
 		double summe = 0;
 		artikelPanel.removeAll();
-		artikelPanel.setLayout(new GridLayout(warenkorbModel.getArtikelMap().size(),5));
+		artikelPanel.setLayout(new BorderLayout());
+		artikelPanel.add(subArtikelPanel, BorderLayout.PAGE_START);
+		subArtikelPanel.removeAll();
+		subArtikelPanel.setLayout(new GridLayout(warenkorbModel.getArtikelMap().size(),5));
 
 		System.out.println("Im Warenkorb befinden sich: ");
 		Iterator<Entry<ArtikelModel, Integer>> iterator = warenkorbModel.getArtikelMap().entrySet().iterator();
@@ -88,16 +92,16 @@ public class WarenkorbView extends JFrame implements Observer
 			System.out.println(artikelModel.getName());
 			
 			artikelanzahl++;
-			artikelPanel.add(new JLabel(artikelanzahl+". Artikel"));
-			artikelPanel.add(new JLabel(artikelModel.getName()));
-			artikelPanel.add(new JLabel(artikelModel.getPreis() + "Euro"));
-			artikelPanel.add(new JLabel(" "+anzahl));
+			subArtikelPanel.add(new JLabel(artikelanzahl+". Artikel"));
+			subArtikelPanel.add(new JLabel(artikelModel.getName()));
+			subArtikelPanel.add(new JLabel(artikelModel.getPreis() + "Euro"));
+			subArtikelPanel.add(new JLabel(" "+anzahl));
 			summe = berechneSumme(summe, artikelModel.getPreis()*anzahl);
 	        JButton button = new JButton("Entfernen");
 	        button.setName(artikelModel.getArtikelId().toString());
 	        button.addActionListener(controller);
 	        
-	        artikelPanel.add(button);
+	        subArtikelPanel.add(button);
 	        System.out.println("Warenkorbsumme: "+summe);
 		}
 		System.out.println("Warenkorb Ende. \n");
