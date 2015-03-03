@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.*;
 import java.util.Map.Entry;
@@ -46,6 +47,7 @@ public class WarenkorbView extends JFrame implements Observer
 	private void addAndUpdateSumme(double summe)
 	{
 		summenPanel.removeAll();
+		summenPanel.setLayout(new FlowLayout());
 		summenPanel.add(new JLabel("Aktuelle Summe: "+summe+" Euro"));
 	}
 	

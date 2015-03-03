@@ -1,7 +1,12 @@
 package statics;
 
+import java.io.File;
+
 public class Statics
 {
+	private static String separator = File.separator;
+	
+	
     public static final String ANMELDEN = "Anmelden";
 
 	public static final String[] buttonlabels_nav = 
@@ -22,6 +27,5 @@ public class Statics
 	
 	public static final String itemPath = "/Users/admin/Dropbox/FH/aktikelSpeicherOrt2.txt";
 	public static final String userPath = "/Users/admin/Dropbox/FH/benutzerSpeicherOrt2.txt";
-	
 	public static final int anzahlArtikelProSeite = 20;
 }

@@ -7,5 +7,6 @@ public class InternetzEinkaufsladen2
 	{
 		ControllerController mainC = new ControllerController();
 		mainC.startShop();
+		
 	}
 }
