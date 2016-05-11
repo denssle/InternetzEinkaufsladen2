@@ -7,3 +7,8 @@ app/.DS_Store
 public/.DS_Store
 *.py~
 *.pyc
+.project
+.settings
+.settings/org.eclipse.jdt.core.prefs
+0001-observer-introduced.patch
+.classpath
